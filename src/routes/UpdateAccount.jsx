@@ -1,26 +1,31 @@
 import React, { useState } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { GLOBALS } from '../utils/constants';
-import { useNavigate } from 'react-router-dom';
 import ModalView from '../components/UI/ModalView';
+import { useSelector, useDispatch } from 'react-redux';
+import { setHospital } from '../redux/hospital';
 import LabeledInput from '../components/UI/LabeledInput';
 import { toast } from 'react-toastify';
 
-export default function Signup() {
+export default function UpdateAccount() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const hospital = useSelector((state) => state.hospital);
+  const { name, email, contact, address, token } = hospital;
 
   const [showModal, setShowModal] = useState(false);
   const [modalTitle, setModalTitle] = useState('');
   const [modalBody, setModalBody] = useState('');
 
   const [record, setRecord] = useState({
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    contact: '',
-    address: '',
+    name,
+    email,
+    contact,
+    address,
+    token,
   });
 
   const checkInputs = () => {
@@ -42,18 +47,6 @@ export default function Signup() {
       setShowModal(true);
       return false;
     }
-    if (record.password.length < 6) {
-      setModalTitle('Invalid Password');
-      setModalBody('Password must be at least 6 characters long');
-      setShowModal(true);
-      return false;
-    }
-    if (record.password !== record.confirmPassword) {
-      setModalTitle('Invalid Password');
-      setModalBody('Password and Confirm Password must be same');
-      setShowModal(true);
-      return false;
-    }
     if (record.contact.length < 11) {
       setModalTitle('Invalid Contact Number');
       setModalBody('Contact Number must be at least 11 characters long');
@@ -69,8 +62,6 @@ export default function Signup() {
     return true;
   };
 
-  const [showPassword, setShowPassword] = React.useState(false);
-
   const handleChange = (e) => {
     setRecord({ ...record, [e.target.name]: e.target.value });
   };
@@ -79,20 +70,21 @@ export default function Signup() {
     e.preventDefault();
     if (checkInputs()) {
       try {
-        const response = await axios.post(
-          `${GLOBALS.BASE_URL}/hospitals/signup`,
+        const response = await axios.put(
+          `${GLOBALS.BASE_URL}/hospitals/update-account`,
           record
         );
-        if (response.data.status !== '201') {
-          setModalTitle('Signup Failed');
+        if (response.data.status !== '200') {
+          setModalTitle('Account Update Failed');
           setModalBody(response.data.message);
           setShowModal(true);
         } else {
-          navigate('/');
-          toast.success('Signup Successful');
+          toast.success('Account Updated');
+          dispatch(setHospital(response.data?.hospital));
+          navigate('/home');
         }
       } catch (err) {
-        setModalTitle('Signup Failed');
+        setModalTitle('Account Update Failed');
         setModalBody(err.message);
         setShowModal(true);
       }
@@ -105,77 +97,55 @@ export default function Signup() {
     <>
       <Container className='d-flex align-items-center justify-content-center my-3'>
         <div className='w-100' style={{ maxWidth: '400px' }}>
-          <h2 className='text-center mb-4'>Sign Up</h2>
+          <h2 className='text-center mb-4'>Update Account</h2>
           <Form onSubmit={handleSubmit}>
             <LabeledInput
               label='Hospital Name'
-              controlId={'name'}
-              type='text'
+              controlId='name'
+              className='mb-3'
               name='name'
               value={record.name}
               onChange={handleChange}
-              required
-              className={'mb-3'}
+              placeholder=''
+              type='text'
             />
             <LabeledInput
-              label='Email Address'
-              controlId={'email'}
+              label='Email'
+              controlId='email'
               className='mb-3'
-              type='email'
               name='email'
               value={record.email}
               onChange={handleChange}
-              required
-              bottomText={'We will never share your email with anyone else.'}
-            />
-            <LabeledInput
-              className='mb-3'
-              controlId='password'
-              label='Password'
-              type={showPassword ? 'text' : 'password'}
-              name='password'
-              value={record.password}
-              onChange={(e) => handleChange(e)}
               placeholder=''
+              type='email'
+              disabled={true}
+              bottomText='Email cannot be changed'
             />
+
             <LabeledInput
-              className='mb-3'
-              controlId='confirmPassword'
-              label='Confirm Password'
-              type={showPassword ? 'text' : 'password'}
-              name='confirmPassword'
-              value={record.confirmPassword}
-              onChange={(e) => handleChange(e)}
-              placeholder=''
-            />
-            <Form.Group className='mb-3' controlId='showPassword'>
-              <Form.Check
-                type='checkbox'
-                onChange={() => setShowPassword(!showPassword)}
-                label='Show Password'
-              />
-            </Form.Group>
-            <LabeledInput
-              className='mb-3'
-              controlId='contact'
               label='Contact Number'
-              type='tel'
-              placeholder=''
+              controlId='contact'
+              className='mb-3'
               name='contact'
               value={record.contact}
-              onChange={(e) => handleChange(e)}
+              onChange={handleChange}
+              placeholder=''
+              type='text'
             />
+
             <LabeledInput
-              className='mb-3'
-              controlId='address'
               label='Address'
-              as='textarea'
-              style={{ height: '100px' }}
+              controlId='address'
+              className='mb-3'
               name='address'
               value={record.address}
-              onChange={(e) => handleChange(e)}
+              onChange={handleChange}
               placeholder=''
+              type='text'
+              as='textarea'
+              style={{ height: '100px' }}
             />
+
             <Button variant='primary' type='submit'>
               Submit
             </Button>

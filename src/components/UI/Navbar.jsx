@@ -49,15 +49,17 @@ function NavBar() {
             </NavLink>
           ) : (
             <NavDropdown title={`${name} `} id='basic-nav-dropdown'>
-              <NavDropdown.Item as={Link} to='/sign-up'>
-                Hello
+              <NavDropdown.Item as={Link} to='/resources'>
+                Resources
               </NavDropdown.Item>
-              <NavDropdown.Item href='#action/3.2'>
-                Another action
+              <NavDropdown.Item as={Link} to='/volunteers'>
+                Volunteers
               </NavDropdown.Item>
-              <NavDropdown.Item href='#action/3.3'>Something</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to='/account'>
+                Account
+              </NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item onClick={handleSignout}>
+              <NavDropdown.Item as={Link} to='/' onClick={handleSignout}>
                 Sign Out
               </NavDropdown.Item>
             </NavDropdown>

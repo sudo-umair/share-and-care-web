@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setHospital } from '../redux/hospital';
 import ModalView from '../components/UI/ModalView';
+import LabeledInput from '../components/UI/LabeledInput';
+import { toast } from 'react-toastify';
 
 export default function Signin() {
   const navigate = useNavigate();
@@ -59,6 +61,7 @@ export default function Signin() {
         if (response.data.status === '200') {
           dispatch(setHospital(response.data?.hospital));
           navigate('/home');
+          toast.success(`Signed in successfully as ${record.email}`);
         } else {
           setModalTitle('Error Signing In');
           setModalBody(response.data.message);
@@ -80,27 +83,26 @@ export default function Signin() {
         <div className='w-100' style={{ maxWidth: '400px' }}>
           <h2 className='text-center mb-4'>Sign In</h2>
           <Form onSubmit={handleSubmit}>
-            <Form.Group className='mb-3' controlId='email'>
-              <Form.Label>Email address</Form.Label>
-              <Form.Control
-                type='email'
-                name='email'
-                value={record.email}
-                onChange={(e) => handleChange(e)}
-                placeholder=''
-              />
-            </Form.Group>
-            <Form.Group className='mb-3' controlId='password'>
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type={showPassword ? 'text' : 'password'}
-                name='password'
-                value={record.password}
-                onChange={(e) => handleChange(e)}
-                placeholder=''
-              />
-            </Form.Group>
-
+            <LabeledInput
+              className='mb-3'
+              controlId='email'
+              label='Email address'
+              type='email'
+              name='email'
+              value={record.email}
+              onChange={(e) => handleChange(e)}
+              placeholder=''
+            />
+            <LabeledInput
+              className='mb-3'
+              controlId='password'
+              label='Password'
+              type={showPassword ? 'text' : 'password'}
+              name='password'
+              value={record.password}
+              onChange={(e) => handleChange(e)}
+              placeholder=''
+            />
             <Form.Group className='mb-3' controlId='formBasicCheckbox'>
               <Form.Check
                 type='checkbox'
