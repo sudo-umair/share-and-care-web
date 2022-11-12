@@ -7,6 +7,8 @@ import Home from '../routes/Home';
 import { useSelector } from 'react-redux';
 import Account from '../routes/Account';
 import UpdateAccount from '../routes/UpdateAccount';
+import UpdatePassword from '../routes/UpdatePassword';
+import ForgotPassword from '../routes/ForgotPassword';
 
 export default function AppRouter() {
   const { isLoggedIn } = useSelector((state) => state.hospital);
@@ -16,6 +18,7 @@ export default function AppRouter() {
       <Routes>
         <Route path='/' element={<Signin />} />
         <Route path='/sign-up' element={<Signup />} />
+        <Route path='/forgot-password' element={<ForgotPassword />} />
         <Route path='/home' element={isLoggedIn ? <Home /> : <Signin />} />
         <Route
           path='/account'
@@ -25,6 +28,7 @@ export default function AppRouter() {
           path='/update-account'
           element={isLoggedIn ? <UpdateAccount /> : <Signin />}
         />
+        <Route path='/update-password' element={<UpdatePassword />} />
         <Route path='*' element={<h1>404</h1>} />
       </Routes>
     </Router>

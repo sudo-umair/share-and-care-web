@@ -61,16 +61,12 @@ export default function Signin() {
         if (response.data.status === '200') {
           dispatch(setHospital(response.data?.hospital));
           navigate('/home');
-          toast.success(`Signed in successfully as ${record.email}`);
+          toast.success(`Signed in as ${record.email}`);
         } else {
-          setModalTitle('Error Signing In');
-          setModalBody(response.data.message);
-          setShowModal(true);
+          toast.warning(response.data.message);
         }
       } catch (err) {
-        setModalTitle('Error Signing In');
-        setModalBody(err.message);
-        setShowModal(true);
+        toast.warning(err.message);
       }
     } else {
       setShowModal(true);

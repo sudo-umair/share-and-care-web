@@ -19,7 +19,6 @@ export default function Home() {
     axios
       .post(`${GLOBALS.BASE_URL}/hospitals/requests-count`, { email })
       .then((res) => {
-        console.log(res.data.hospitalRecord);
         setHospitalRecord(res.data.hospitalRecord);
       })
       .catch((err) => {

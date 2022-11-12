@@ -83,18 +83,14 @@ export default function Signup() {
           `${GLOBALS.BASE_URL}/hospitals/signup`,
           record
         );
-        if (response.data.status !== '201') {
-          setModalTitle('Signup Failed');
-          setModalBody(response.data.message);
-          setShowModal(true);
-        } else {
-          navigate('/');
+        if (response.data.status === '201') {
           toast.success('Signup Successful');
+          navigate('/');
+        } else {
+          toast.error(response.data.message);
         }
       } catch (err) {
-        setModalTitle('Signup Failed');
-        setModalBody(err.message);
-        setShowModal(true);
+        toast.warning(err.message);
       }
     } else {
       setShowModal(true);

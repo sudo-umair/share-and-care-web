@@ -55,8 +55,8 @@ function NavBar() {
               <NavDropdown.Item as={Link} to='/volunteers'>
                 Volunteers
               </NavDropdown.Item>
-              <NavDropdown.Item as={Link} to='/account'>
-                Account
+              <NavDropdown.Item as={Link} to='/update-password'>
+                Update Password
               </NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item as={Link} to='/' onClick={handleSignout}>

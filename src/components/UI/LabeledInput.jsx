@@ -20,6 +20,7 @@ export default function LabeledInput({
     <Form.Group className={className} controlId={controlId}>
       <Form.Label>{label}</Form.Label>
       <Form.Control
+        size='sm'
         style={style}
         as={as}
         type={type}
