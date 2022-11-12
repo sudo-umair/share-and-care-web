@@ -48,7 +48,11 @@ function NavBar() {
               {location.pathname === '/' ? 'Sign Up' : 'Sign In'}
             </NavLink>
           ) : (
-            <NavDropdown title={`${name} `} id='basic-nav-dropdown'>
+            <NavDropdown
+              title={`${name} `}
+              menuVariant='dark'
+              id='basic-nav-dropdown'
+            >
               <NavDropdown.Item as={Link} to='/resources'>
                 Resources
               </NavDropdown.Item>

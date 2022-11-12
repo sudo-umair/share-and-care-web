@@ -108,6 +108,7 @@ export default function UpdateAccount() {
               onChange={handleChange}
               placeholder=''
               type='text'
+              required
             />
             <LabeledInput
               label='Email'
@@ -119,7 +120,8 @@ export default function UpdateAccount() {
               placeholder=''
               type='email'
               disabled={true}
-              bottomText='Email cannot be changed'
+              bottomText='Once set Email cannot be changed'
+              required
             />
 
             <LabeledInput
@@ -131,6 +133,7 @@ export default function UpdateAccount() {
               onChange={handleChange}
               placeholder=''
               type='text'
+              required
             />
 
             <LabeledInput
@@ -144,11 +147,18 @@ export default function UpdateAccount() {
               type='text'
               as='textarea'
               style={{ height: '100px' }}
+              required
             />
-
-            <Button variant='primary' type='submit'>
-              Submit
-            </Button>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+              }}
+            >
+              <Button size='sm' variant='primary' type='submit'>
+                Submit
+              </Button>
+            </div>
           </Form>
         </div>
       </Container>
