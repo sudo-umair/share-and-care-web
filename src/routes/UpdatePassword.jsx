@@ -6,12 +6,10 @@ import { useNavigate } from 'react-router-dom';
 import ModalView from '../components/UI/ModalView';
 import LabeledInput from '../components/UI/LabeledInput';
 import { toast } from 'react-toastify';
-import { useDispatch, useSelector } from 'react-redux';
-import { setHospital } from '../redux/hospital';
+import { useSelector } from 'react-redux';
 
 export default function UpdatePassword() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const { email, token } = useSelector((state) => state.hospital);
 
@@ -127,11 +125,21 @@ export default function UpdatePassword() {
                 type='checkbox'
                 onChange={() => setShowPassword(!showPassword)}
                 label='Show Password'
+                style={{
+                  fontSize: '0.9rem',
+                }}
               />
             </Form.Group>
-            <Button variant='primary' type='submit'>
-              Submit
-            </Button>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+              }}
+            >
+              <Button size='sm' variant='primary' type='submit'>
+                Submit
+              </Button>
+            </div>
           </Form>
         </div>
       </Container>

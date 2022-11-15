@@ -133,6 +133,7 @@ export default function Signup() {
               value={record.password}
               onChange={(e) => handleChange(e)}
               placeholder=''
+              required
             />
             <LabeledInput
               className='mb-3'
@@ -143,12 +144,16 @@ export default function Signup() {
               value={record.confirmPassword}
               onChange={(e) => handleChange(e)}
               placeholder=''
+              required
             />
             <Form.Group className='mb-3' controlId='showPassword'>
               <Form.Check
                 type='checkbox'
                 onChange={() => setShowPassword(!showPassword)}
                 label='Show Password'
+                style={{
+                  fontSize: '0.9rem',
+                }}
               />
             </Form.Group>
             <LabeledInput
@@ -160,6 +165,7 @@ export default function Signup() {
               name='contact'
               value={record.contact}
               onChange={(e) => handleChange(e)}
+              required
             />
             <LabeledInput
               className='mb-3'
@@ -171,10 +177,18 @@ export default function Signup() {
               value={record.address}
               onChange={(e) => handleChange(e)}
               placeholder=''
+              required
             />
-            <Button variant='primary' type='submit'>
-              Submit
-            </Button>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+              }}
+            >
+              <Button size='sm' variant='primary' type='submit'>
+                Submit
+              </Button>
+            </div>
           </Form>
         </div>
       </Container>

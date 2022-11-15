@@ -15,10 +15,19 @@ export default function LabeledInput({
   style,
   as,
   bottomText,
+  maxLength,
+  minLength,
 }) {
   return (
     <Form.Group className={className} controlId={controlId}>
-      <Form.Label>{label}</Form.Label>
+      <Form.Label
+        style={{
+          fontSize: '0.9rem',
+          margin: 0,
+        }}
+      >
+        {label}
+      </Form.Label>
       <Form.Control
         size='sm'
         style={style}
@@ -28,8 +37,10 @@ export default function LabeledInput({
         value={value}
         onChange={onChange}
         placeholder={placeholder ?? ''}
-        required={required ?? true}
+        required={required ?? false}
         disabled={disabled ?? false}
+        maxLength={maxLength ?? 100}
+        minLength={minLength ?? 0}
       />
       {bottomText && <Form.Text className='text-muted'>{bottomText}</Form.Text>}
     </Form.Group>

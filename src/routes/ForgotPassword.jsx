@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { GLOBALS } from '../utils/constants';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setHospital } from '../redux/hospital';
 import ModalView from '../components/UI/ModalView';
@@ -19,7 +19,7 @@ export default function Signin() {
 
   const [record, setRecord] = useState({
     email: '',
-    password: '',
+    otp: '',
   });
 
   const checkInputs = () => {
@@ -44,8 +44,6 @@ export default function Signin() {
     return true;
   };
 
-  const [showPassword, setShowPassword] = React.useState(false);
-
   const handleChange = (e) => {
     setRecord({ ...record, [e.target.name]: e.target.value });
   };
@@ -55,8 +53,11 @@ export default function Signin() {
     if (checkInputs()) {
       try {
         const response = await axios.post(
-          `${GLOBALS.BASE_URL}/hospitals/signin`,
-          record
+          `${GLOBALS.BASE_URL}/hospitals/forgotPassword`,
+          {
+            email: record.email,
+            userType: 'hospital',
+          }
         );
         if (response.data.status === '200') {
           dispatch(setHospital(response.data?.hospital));
@@ -77,7 +78,7 @@ export default function Signin() {
     <>
       <Container className='d-flex align-items-center justify-content-center my-3'>
         <div className='w-100' style={{ maxWidth: '400px' }}>
-          <h2 className='text-center mb-4'>Sign In</h2>
+          <h2 className='text-center mb-4'>Forgot Password</h2>
           <Form onSubmit={handleSubmit}>
             <LabeledInput
               className='mb-3'
@@ -88,29 +89,18 @@ export default function Signin() {
               value={record.email}
               onChange={(e) => handleChange(e)}
               placeholder=''
-              required={true}
             />
             <LabeledInput
               className='mb-3'
-              controlId='password'
-              label='Password'
-              type={showPassword ? 'text' : 'password'}
-              name='password'
+              controlId='otp'
+              label='OTP'
+              type='number'
+              name='otp'
               value={record.password}
               onChange={(e) => handleChange(e)}
-              placeholder=''
-              required={true}
+              placeholder='Enter OTP here'
+              minLength='6'
             />
-            <Form.Group className='mb-3' controlId='formBasicCheckbox'>
-              <Form.Check
-                type='checkbox'
-                onChange={() => setShowPassword(!showPassword)}
-                label='Show Password'
-                style={{
-                  fontSize: '0.9rem',
-                }}
-              />
-            </Form.Group>
             <div
               style={{
                 display: 'flex',
@@ -122,15 +112,6 @@ export default function Signin() {
               </Button>
             </div>
           </Form>
-
-          <div
-            style={{
-              fontSize: '0.9rem',
-            }}
-            className='w-100 text-center mt-2'
-          >
-            <Link to={'/forgot-password'}>Forgot Password?</Link>
-          </div>
         </div>
       </Container>
       <ModalView

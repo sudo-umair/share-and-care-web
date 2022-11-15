@@ -17,11 +17,19 @@ export default function ModalView({
       <Modal.Body>{modalBody}</Modal.Body>
       <Modal.Footer>
         {action2Function && (
-          <Button variant='secondary' onClick={() => action2Function()}>
+          <Button
+            variant='secondary'
+            size='sm'
+            onClick={() => action2Function()}
+          >
             {action2Text}
           </Button>
         )}
-        <Button variant='secondary' onClick={() => setShowModal(false)}>
+        <Button
+          variant='secondary'
+          size='sm'
+          onClick={() => setShowModal(false)}
+        >
           Close
         </Button>
       </Modal.Footer>
