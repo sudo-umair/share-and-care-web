@@ -7,7 +7,7 @@ import ModalView from '../components/UI/ModalView';
 import LabeledInput from '../components/UI/LabeledInput';
 import { toast } from 'react-toastify';
 
-export default function Signin() {
+export default function ForgotPassword() {
   const navigate = useNavigate();
 
   const [showModal, setShowModal] = useState(false);
