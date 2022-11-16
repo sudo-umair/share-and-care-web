@@ -13,13 +13,18 @@ export default function LabeledInput({
   required,
   disabled,
   style,
+  containerStyle,
   as,
   bottomText,
   maxLength,
   minLength,
 }) {
   return (
-    <Form.Group className={className} controlId={controlId}>
+    <Form.Group
+      className={className}
+      style={containerStyle ?? {}}
+      controlId={controlId}
+    >
       <Form.Label
         style={{
           fontSize: '0.9rem',
