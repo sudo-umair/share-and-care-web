@@ -1,6 +1,7 @@
 import React from 'react';
 import NavBar from '../components/UI/Navbar';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ConfigProvider as AvatarProvider } from 'react-avatar';
 import Signin from '../routes/Signin';
 import Signup from '../routes/Signup';
 import Home from '../routes/Home';
@@ -14,7 +15,9 @@ export default function AppRouter() {
   const { isLoggedIn } = useSelector((state) => state.hospital);
   return (
     <Router>
-      <NavBar />
+      <AvatarProvider>
+        <NavBar />
+      </AvatarProvider>
       <Routes>
         <Route path='/' element={<Signin />} />
         <Route path='/sign-up' element={<Signup />} />

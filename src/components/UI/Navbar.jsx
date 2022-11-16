@@ -5,6 +5,7 @@ import Logo from '../../assets/icon.png';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeHospital } from '../../redux/hospital';
+import Avatar from 'react-avatar';
 
 function NavBar() {
   const location = useLocation();
@@ -49,7 +50,7 @@ function NavBar() {
             </NavLink>
           ) : (
             <NavDropdown
-              title={`${name} `}
+              title={<Avatar name={name} title={name} size={30} round={true} />}
               menuVariant='dark'
               id='basic-nav-dropdown'
             >
