@@ -15,18 +15,21 @@ export default function Home() {
   );
 
   useEffect(() => {
-    setLoading(true);
-    axios
-      .post(`${GLOBALS.BASE_URL}/hospitals/requests-count`, { email })
-      .then((res) => {
-        setHospitalRecord(res.data.hospitalRecord);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    const getData = async () => {
+      setLoading(true);
+      await axios
+        .post(`${GLOBALS.BASE_URL}/hospitals/requests-count`, { email })
+        .then((res) => {
+          setHospitalRecord(res.data.hospitalRecord);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    };
+    getData();
   }, [email]);
 
   return (

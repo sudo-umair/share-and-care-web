@@ -6,18 +6,28 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeHospital } from '../../redux/hospital';
 import Avatar from 'react-avatar';
+import { toast } from 'react-toastify';
+import axios from 'axios';
+import { GLOBALS } from '../../utils/constants';
 
 function NavBar() {
   const location = useLocation();
   const dispatch = useDispatch();
-  const { isLoggedIn, name } = useSelector((state) => state.hospital);
+  const { isLoggedIn, name, email, token } = useSelector(
+    (state) => state.hospital
+  );
 
-  const handleSignout = () => {
+  const handleSignOut = async () => {
     dispatch(removeHospital());
+    toast.success('Signed out successfully');
+    await axios.post(`${GLOBALS.BASE_URL}/hospitals/signout`, {
+      email,
+      token,
+    });
   };
 
   return (
-    <Navbar bg='dark' variant='dark' sticky='top'>
+    <Navbar bg='dark' variant='dark'>
       <Container>
         <Navbar.Brand>
           <img
@@ -64,7 +74,7 @@ function NavBar() {
                 Update Password
               </NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item as={Link} to='/' onClick={handleSignout}>
+              <NavDropdown.Item as={Link} to='/' onClick={handleSignOut}>
                 Sign Out
               </NavDropdown.Item>
             </NavDropdown>
