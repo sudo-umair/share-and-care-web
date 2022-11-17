@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Form, Button } from 'react-bootstrap';
+import { Container, Form } from 'react-bootstrap';
 import axios from 'axios';
 import { GLOBALS } from '../utils/constants';
 import { useNavigate } from 'react-router-dom';
@@ -7,6 +7,7 @@ import ModalView from '../components/UI/ModalView';
 import LabeledInput from '../components/UI/LabeledInput';
 import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
+import ButtonView from '../components/UI/ButtonView';
 
 export default function UpdatePassword() {
   const navigate = useNavigate();
@@ -16,6 +17,8 @@ export default function UpdatePassword() {
   const [showModal, setShowModal] = useState(false);
   const [modalTitle, setModalTitle] = useState('');
   const [modalBody, setModalBody] = useState('');
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const [record, setRecord] = useState({
     password: '',
@@ -65,10 +68,12 @@ export default function UpdatePassword() {
     e.preventDefault();
     if (checkInputs()) {
       try {
+        setIsLoading(true);
         const response = await axios.put(
           `${GLOBALS.BASE_URL}/hospitals/update-password`,
           { ...record, email, token }
         );
+        setIsLoading(false);
         if (response.data.status === '200') {
           toast.success('Password Updated');
           navigate('/');
@@ -136,9 +141,9 @@ export default function UpdatePassword() {
                 justifyContent: 'center',
               }}
             >
-              <Button size='sm' variant='primary' type='submit'>
+              <ButtonView isLoading={isLoading} variant='primary' type='submit'>
                 Submit
-              </Button>
+              </ButtonView>
             </div>
           </Form>
         </div>

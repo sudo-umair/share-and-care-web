@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Form, Button } from 'react-bootstrap';
+import { Container, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { GLOBALS } from '../utils/constants';
@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setHospital } from '../redux/hospital';
 import LabeledInput from '../components/UI/LabeledInput';
 import { toast } from 'react-toastify';
+import ButtonView from '../components/UI/ButtonView';
 
 export default function UpdateAccount() {
   const navigate = useNavigate();
@@ -19,6 +20,8 @@ export default function UpdateAccount() {
   const [showModal, setShowModal] = useState(false);
   const [modalTitle, setModalTitle] = useState('');
   const [modalBody, setModalBody] = useState('');
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const [record, setRecord] = useState({
     name,
@@ -70,10 +73,12 @@ export default function UpdateAccount() {
     e.preventDefault();
     if (checkInputs()) {
       try {
+        setIsLoading(true);
         const response = await axios.put(
           `${GLOBALS.BASE_URL}/hospitals/update-account`,
           record
         );
+        setIsLoading(false);
         if (response.data.status !== '200') {
           setModalTitle('Account Update Failed');
           setModalBody(response.data.message);
@@ -155,9 +160,9 @@ export default function UpdateAccount() {
                 justifyContent: 'center',
               }}
             >
-              <Button size='sm' variant='primary' type='submit'>
+              <ButtonView isLoading={isLoading} variant='primary' type='submit'>
                 Submit
-              </Button>
+              </ButtonView>
             </div>
           </Form>
         </div>

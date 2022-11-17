@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Container, Form, Button } from 'react-bootstrap';
+import { Container, Form } from 'react-bootstrap';
 import axios from 'axios';
 import { GLOBALS } from '../utils/constants';
 import { useNavigate } from 'react-router-dom';
 import ModalView from '../components/UI/ModalView';
 import LabeledInput from '../components/UI/LabeledInput';
 import { toast } from 'react-toastify';
+import ButtonView from '../components/UI/ButtonView';
 
 export default function ForgotPassword() {
   const navigate = useNavigate();
@@ -13,6 +14,10 @@ export default function ForgotPassword() {
   const [showModal, setShowModal] = useState(false);
   const [modalTitle, setModalTitle] = useState('');
   const [modalBody, setModalBody] = useState('');
+
+  const [isLoading1, setIsLoading1] = useState(false);
+  const [isLoading2, setIsLoading2] = useState(false);
+  const [isLoading3, setIsLoading3] = useState(false);
 
   const [showRPC, setShowRPC] = useState(false);
 
@@ -75,6 +80,7 @@ export default function ForgotPassword() {
     e.preventDefault();
     if (checkEmailInputs()) {
       try {
+        setIsLoading1(true);
         const response = await axios.post(
           `${GLOBALS.BASE_URL}/otp/forgotPassword`,
           {
@@ -82,6 +88,7 @@ export default function ForgotPassword() {
             userType: 'hospital',
           }
         );
+        setIsLoading1(false);
         if (response.data.status === '200') {
           toast.success(response.data.message);
         } else {
@@ -99,11 +106,13 @@ export default function ForgotPassword() {
     e.preventDefault();
     if (checkEmailInputs() && checkOtpInputs()) {
       try {
+        setIsLoading2(true);
         const response = await axios.post(`${GLOBALS.BASE_URL}/otp/verifyOtp`, {
           email: record.email,
           userType: 'hospital',
           otp: record.otp,
         });
+        setIsLoading2(false);
         if (response.data.status === '200') {
           setShowRPC(true);
           toast.success(response.data.message);
@@ -122,6 +131,7 @@ export default function ForgotPassword() {
     e.preventDefault();
     if (checkPasswordInputs()) {
       try {
+        setIsLoading3(true);
         const response = await axios.post(
           `${GLOBALS.BASE_URL}/otp/resetPassword`,
           {
@@ -130,6 +140,7 @@ export default function ForgotPassword() {
             userType: 'hospital',
           }
         );
+        setIsLoading3(false);
         if (response.data.status === '200') {
           toast.success(response.data.message);
           navigate('/');
@@ -179,13 +190,14 @@ export default function ForgotPassword() {
                     value={record.otp}
                     onChange={(e) => handleChange(e)}
                     placeholder='Enter OTP here'
+                    maxLength={6}
                     minLength={6}
                     containerStyle={{ width: '70%' }}
                     required
                   />
-                  <Button
+                  <ButtonView
                     className='ml-3'
-                    size='sm'
+                    isLoading={isLoading1}
                     style={{
                       marginTop: '8px',
                     }}
@@ -194,7 +206,7 @@ export default function ForgotPassword() {
                     onClick={handleSendOTP}
                   >
                     Send OTP
-                  </Button>
+                  </ButtonView>
                 </div>
                 <div
                   style={{
@@ -202,9 +214,13 @@ export default function ForgotPassword() {
                     justifyContent: 'center',
                   }}
                 >
-                  <Button size='sm' variant='primary' type='submit'>
+                  <ButtonView
+                    isLoading={isLoading2}
+                    variant='primary'
+                    type='submit'
+                  >
                     Verify OTP
-                  </Button>
+                  </ButtonView>
                 </div>
               </Form>
             </>
@@ -265,9 +281,13 @@ export default function ForgotPassword() {
                     justifyContent: 'center',
                   }}
                 >
-                  <Button size='sm' variant='primary' type='submit'>
+                  <ButtonView
+                    isLoading={isLoading3}
+                    variant='primary'
+                    type='submit'
+                  >
                     Reset Password
-                  </Button>
+                  </ButtonView>
                 </div>
               </Form>
             </>

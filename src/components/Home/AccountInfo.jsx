@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { GLOBALSTYLES as GS } from '../../utils/styles';
 
 export default function AccountInfo({ name, email, contact, address }) {
   return (
@@ -8,6 +9,8 @@ export default function AccountInfo({ name, email, contact, address }) {
       <Card.Header
         style={{
           textAlign: 'center',
+          backgroundColor: GS.primary,
+          color: 'white',
         }}
       >
         {name}
@@ -36,9 +39,19 @@ export default function AccountInfo({ name, email, contact, address }) {
         style={{
           justifyContent: 'center',
           display: 'flex',
+          backgroundColor: GS.primary,
         }}
       >
-        <Link to='/update-account'> Update Account </Link>
+        <Link
+          style={{
+            color: 'white',
+            fontSize: '0.8rem',
+          }}
+          to='/update-account'
+        >
+          {' '}
+          Update Account{' '}
+        </Link>
       </Card.Footer>
     </Card>
   );

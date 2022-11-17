@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Form, Button } from 'react-bootstrap';
+import { Container, Form } from 'react-bootstrap';
 import axios from 'axios';
 import { GLOBALS } from '../utils/constants';
 import { Link, useNavigate } from 'react-router-dom';
@@ -8,6 +8,7 @@ import { setHospital } from '../redux/hospital';
 import ModalView from '../components/UI/ModalView';
 import LabeledInput from '../components/UI/LabeledInput';
 import { toast } from 'react-toastify';
+import ButtonView from '../components/UI/ButtonView';
 
 export default function Signin() {
   const navigate = useNavigate();
@@ -16,6 +17,8 @@ export default function Signin() {
   const [showModal, setShowModal] = useState(false);
   const [modalTitle, setModalTitle] = useState('');
   const [modalBody, setModalBody] = useState('');
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const [record, setRecord] = useState({
     email: '',
@@ -54,10 +57,12 @@ export default function Signin() {
     e.preventDefault();
     if (checkInputs()) {
       try {
+        setIsLoading(true);
         const response = await axios.post(
           `${GLOBALS.BASE_URL}/hospitals/signin`,
           record
         );
+        setIsLoading(false);
         if (response.data.status === '200') {
           dispatch(setHospital(response.data?.hospital));
           navigate('/home');
@@ -117,9 +122,9 @@ export default function Signin() {
                 justifyContent: 'center',
               }}
             >
-              <Button size='sm' variant='primary' type='submit'>
-                Submit
-              </Button>
+              <ButtonView variant='primary' type='submit' isLoading={isLoading}>
+                Sign In
+              </ButtonView>
             </div>
           </Form>
 

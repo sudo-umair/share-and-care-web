@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Container, Form, Button } from 'react-bootstrap';
+import { Container, Form } from 'react-bootstrap';
 import axios from 'axios';
 import { GLOBALS } from '../utils/constants';
 import { useNavigate } from 'react-router-dom';
 import ModalView from '../components/UI/ModalView';
 import LabeledInput from '../components/UI/LabeledInput';
 import { toast } from 'react-toastify';
+import ButtonView from '../components/UI/ButtonView';
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -13,6 +14,8 @@ export default function Signup() {
   const [showModal, setShowModal] = useState(false);
   const [modalTitle, setModalTitle] = useState('');
   const [modalBody, setModalBody] = useState('');
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const [record, setRecord] = useState({
     name: '',
@@ -79,10 +82,12 @@ export default function Signup() {
     e.preventDefault();
     if (checkInputs()) {
       try {
+        setIsLoading(true);
         const response = await axios.post(
           `${GLOBALS.BASE_URL}/hospitals/signup`,
           record
         );
+        setIsLoading(false);
         if (response.data.status === '201') {
           toast.success('Signup Successful');
           navigate('/');
@@ -185,9 +190,9 @@ export default function Signup() {
                 justifyContent: 'center',
               }}
             >
-              <Button size='sm' variant='primary' type='submit'>
+              <ButtonView variant='primary' isLoading={isLoading} type='submit'>
                 Submit
-              </Button>
+              </ButtonView>
             </div>
           </Form>
         </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, Table, Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { GLOBALSTYLES as GS } from '../../utils/styles';
 
 export default function RequestsCount({ hospitalRecord, isLoading }) {
   return (
@@ -8,6 +9,8 @@ export default function RequestsCount({ hospitalRecord, isLoading }) {
       <Card.Header
         style={{
           textAlign: 'center',
+          backgroundColor: GS.primary,
+          color: 'white',
         }}
       >
         Your Requests Stats
@@ -28,6 +31,7 @@ export default function RequestsCount({ hospitalRecord, isLoading }) {
           style={{
             marginBottom: 0,
           }}
+          striped
         >
           <tbody>
             <tr>
