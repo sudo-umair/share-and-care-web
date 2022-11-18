@@ -10,7 +10,7 @@ export default function Home() {
   const [hospitalRecord, setHospitalRecord] = useState({});
   const [loading, setLoading] = useState(true);
 
-  const { name, email, contact, address } = useSelector(
+  const { name, email, phone, address } = useSelector(
     (state) => state.hospital
   );
 
@@ -48,7 +48,7 @@ export default function Home() {
         <AccountInfo
           name={name}
           email={email}
-          contact={contact}
+          phone={phone}
           address={address}
         />
       </div>

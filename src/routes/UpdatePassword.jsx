@@ -27,14 +27,14 @@ export default function UpdatePassword() {
   });
 
   const checkInputs = () => {
-    if (record.password.length < 6) {
+    if (record.password.trim().length < 6) {
       setModalTitle('Invalid Password');
       setModalBody('Password must be at least 6 characters long');
       setShowModal(true);
       return false;
     }
 
-    if (record.newPassword.length < 6) {
+    if (record.newPassword.trim().length < 6) {
       setModalTitle('Invalid New Password');
       setModalBody('New Password must be at least 6 characters long');
       setShowModal(true);
@@ -98,32 +98,35 @@ export default function UpdatePassword() {
             <LabeledInput
               className='mb-3'
               controlId='password'
-              label='Password'
+              label='Password *'
               type={showPassword ? 'text' : 'password'}
               name='password'
               value={record.password}
               onChange={(e) => handleChange(e)}
-              placeholder=''
+              required
+              minLength={6}
             />
             <LabeledInput
               className='mb-3'
               controlId='newPassword'
-              label='New Password'
+              label='New Password *'
               type={showPassword ? 'text' : 'password'}
               name='newPassword'
               value={record.newPassword}
               onChange={(e) => handleChange(e)}
-              placeholder=''
+              required
+              minLength={6}
             />
             <LabeledInput
               className='mb-3'
               controlId='confirmNewPassword'
-              label='Confirm New Password'
+              label='Confirm New Password *'
               type={showPassword ? 'text' : 'password'}
               name='confirmNewPassword'
               value={record.confirmNewPassword}
               onChange={(e) => handleChange(e)}
-              placeholder=''
+              required
+              minLength={6}
             />
             <Form.Group className='mb-3' controlId='showPassword'>
               <Form.Check

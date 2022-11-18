@@ -14,11 +14,11 @@ const hospitalSlice = createSlice({
   initialState,
   reducers: {
     setHospital: (state, action) => {
-      const { name, address, email, contact, token } = action.payload;
+      const { name, address, email, phone, token } = action.payload;
       state.name = name;
       state.address = address;
       state.email = email;
-      state.contact = contact;
+      state.phone = phone;
       state.token = token;
       state.isLoggedIn = true;
     },

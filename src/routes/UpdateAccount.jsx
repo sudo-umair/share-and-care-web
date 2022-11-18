@@ -15,7 +15,7 @@ export default function UpdateAccount() {
   const dispatch = useDispatch();
 
   const hospital = useSelector((state) => state.hospital);
-  const { name, email, contact, address, token } = hospital;
+  const { name, email, phone, address, token } = hospital;
 
   const [showModal, setShowModal] = useState(false);
   const [modalTitle, setModalTitle] = useState('');
@@ -26,7 +26,7 @@ export default function UpdateAccount() {
   const [record, setRecord] = useState({
     name,
     email,
-    contact,
+    phone,
     address,
     token,
   });
@@ -34,15 +34,15 @@ export default function UpdateAccount() {
   const [originalRecord, setOriginalRecord] = useState(record);
 
   const checkInputs = () => {
-    if (record.name.length < 3) {
+    if (record.name.trim().length < 4) {
       setModalTitle('Invalid Name');
-      setModalBody('Name must be at least 3 characters long');
+      setModalBody('Name must be at least 4 characters long');
       setShowModal(true);
       return false;
     }
-    if (record.email.length < 5) {
+    if (record.email.trim().length < 9) {
       setModalTitle('Invalid Email');
-      setModalBody('Email must be at least 5 characters long');
+      setModalBody('Email must be at least 9 characters long');
       setShowModal(true);
       return false;
     }
@@ -52,13 +52,13 @@ export default function UpdateAccount() {
       setShowModal(true);
       return false;
     }
-    if (record.contact.length < 11) {
-      setModalTitle('Invalid Contact Number');
-      setModalBody('Contact Number must be at least 11 characters long');
+    if (record.phone.trim().length < 10) {
+      setModalTitle('Invalid Phone Number');
+      setModalBody('Phone Number must be at least 10 characters long');
       setShowModal(true);
       return false;
     }
-    if (record.address.length < 10) {
+    if (record.address.trim().length < 10) {
       setModalTitle('Invalid Address');
       setModalBody('Address must be at least 10 characters long');
       setShowModal(true);
@@ -69,10 +69,10 @@ export default function UpdateAccount() {
 
   const checkIfChanged = () => {
     if (
-      record.name === originalRecord.name &&
-      record.email === originalRecord.email &&
-      record.contact === originalRecord.contact &&
-      record.address === originalRecord.address
+      record.name.trim() === originalRecord.name.trim() &&
+      record.email.trim() === originalRecord.email.trim() &&
+      record.phone.trim() === originalRecord.phone.trim() &&
+      record.address.trim() === originalRecord.address.trim()
     ) {
       setModalTitle('No Changes Made');
       setModalBody('No changes were made to the account');
@@ -122,7 +122,7 @@ export default function UpdateAccount() {
           <h2 className='text-center mb-4'>Update Account</h2>
           <Form onSubmit={handleSubmit}>
             <LabeledInput
-              label='Hospital Name'
+              label='Hospital Name *'
               controlId='name'
               className='mb-3'
               name='name'
@@ -131,6 +131,7 @@ export default function UpdateAccount() {
               placeholder=''
               type='text'
               required
+              minLength={4}
             />
             <LabeledInput
               label='Email'
@@ -142,24 +143,26 @@ export default function UpdateAccount() {
               placeholder=''
               type='email'
               disabled={true}
-              bottomText='Once set Email cannot be changed'
+              bottomText='Email address cannot be changed'
               required
+              minLength={9}
             />
 
             <LabeledInput
-              label='Contact Number'
-              controlId='contact'
+              label='Phone Number *'
+              controlId='phone'
               className='mb-3'
-              name='contact'
-              value={record.contact}
+              name='phone'
+              value={record.phone}
               onChange={handleChange}
               placeholder=''
               type='text'
               required
+              minLength={10}
             />
 
             <LabeledInput
-              label='Address'
+              label='Address *'
               controlId='address'
               className='mb-3'
               name='address'
@@ -170,6 +173,7 @@ export default function UpdateAccount() {
               as='textarea'
               style={{ height: '100px' }}
               required
+              minLength={10}
             />
             <div
               style={{

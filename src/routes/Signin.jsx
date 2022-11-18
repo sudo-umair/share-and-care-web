@@ -26,9 +26,9 @@ export default function Signin() {
   });
 
   const checkInputs = () => {
-    if (record.email.length < 5) {
+    if (record.email.trim().length < 9) {
       setModalTitle('Invalid Email');
-      setModalBody('Email must be at least 5 characters long');
+      setModalBody('Email must be at least 9 characters long');
       setShowModal(true);
       return false;
     }
@@ -38,7 +38,7 @@ export default function Signin() {
       setShowModal(true);
       return false;
     }
-    if (record.password.length < 6) {
+    if (record.password.trim().length < 6) {
       setModalTitle('Invalid Password');
       setModalBody('Password must be at least 6 characters long');
       setShowModal(true);
@@ -87,24 +87,26 @@ export default function Signin() {
             <LabeledInput
               className='mb-3'
               controlId='email'
-              label='Email address'
+              label='Email address *'
               type='email'
               name='email'
               value={record.email}
               onChange={(e) => handleChange(e)}
               placeholder=''
-              required={true}
+              required
+              minLength={9}
             />
             <LabeledInput
               className='mb-3'
               controlId='password'
-              label='Password'
+              label='Password *'
               type={showPassword ? 'text' : 'password'}
               name='password'
               value={record.password}
               onChange={(e) => handleChange(e)}
               placeholder=''
-              required={true}
+              required
+              minLength={6}
             />
             <Form.Group className='mb-3' controlId='formBasicCheckbox'>
               <Form.Check
@@ -123,7 +125,7 @@ export default function Signin() {
               }}
             >
               <ButtonView variant='primary' type='submit' isLoading={isLoading}>
-                Sign In
+                Submit
               </ButtonView>
             </div>
           </Form>

@@ -3,7 +3,7 @@ import { Card, Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { GLOBALSTYLES as GS } from '../../utils/styles';
 
-export default function AccountInfo({ name, email, contact, address }) {
+export default function AccountInfo({ name, email, phone, address }) {
   return (
     <Card style={{ width: '35%', height: 'fit-content' }}>
       <Card.Header
@@ -22,16 +22,16 @@ export default function AccountInfo({ name, email, contact, address }) {
       >
         <tbody>
           <tr>
-            <td>Hospital</td>
+            <td>Hospital Name</td>
             <td>{name}</td>
           </tr>
           <tr>
-            <td>Email</td>
+            <td>Email Address</td>
             <td>{email}</td>
           </tr>
           <tr>
-            <td>Contact</td>
-            <td>{contact}</td>
+            <td>Phone Number</td>
+            <td>{phone}</td>
           </tr>
           <tr>
             <td>Address</td>

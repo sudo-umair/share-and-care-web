@@ -31,9 +31,9 @@ export default function ForgotPassword() {
   });
 
   const checkEmailInputs = () => {
-    if (record.email.length < 5) {
+    if (record.email.trim().length < 9) {
       setModalTitle('Invalid Email');
-      setModalBody('Email must be at least 5 characters long');
+      setModalBody('Email must be at least 9 characters long');
       setShowModal(true);
       return false;
     }
@@ -164,13 +164,13 @@ export default function ForgotPassword() {
                 <LabeledInput
                   className='mb-3'
                   controlId='email'
-                  label='Email address'
+                  label='Email address *'
                   type='email'
                   name='email'
                   value={record.email}
                   onChange={(e) => handleChange(e)}
                   placeholder='Enter Email here'
-                  minLength={5}
+                  minLength={9}
                   required
                 />
                 <div
@@ -237,13 +237,13 @@ export default function ForgotPassword() {
                   value={record.email}
                   onChange={(e) => handleChange(e)}
                   placeholder='Enter Email here'
-                  minLength={5}
+                  minLength={9}
                   disabled
                 />
                 <LabeledInput
                   className='mb-3'
                   controlId='password'
-                  label='New Password'
+                  label='New Password *'
                   type={showPassword ? 'text' : 'password'}
                   name='password'
                   value={record.password}
@@ -255,7 +255,7 @@ export default function ForgotPassword() {
                 <LabeledInput
                   className='mb-3'
                   controlId='confirmPassword'
-                  label='Confirm New Password'
+                  label='Confirm New Password *'
                   type={showPassword ? 'text' : 'password'}
                   name='confirmPassword'
                   value={record.confirmPassword}

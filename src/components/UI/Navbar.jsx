@@ -36,7 +36,7 @@ function NavBar() {
             width='30'
             height='30'
             className='d-inline-block align-top'
-          />{' '}
+          />
           <NavLink
             to={isLoggedIn ? '/home' : '/'}
             style={{
@@ -56,7 +56,7 @@ function NavBar() {
                 fontSize: '1rem',
               }}
             >
-              {location.pathname === '/sign-up' ? 'Sign In' : 'Sign Up'}
+              {location.pathname === '/' ? 'Sign Up' : 'Sign In'}
             </NavLink>
           ) : (
             <NavDropdown

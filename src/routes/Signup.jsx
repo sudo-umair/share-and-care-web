@@ -22,20 +22,20 @@ export default function Signup() {
     email: '',
     password: '',
     confirmPassword: '',
-    contact: '',
+    phone: '',
     address: '',
   });
 
   const checkInputs = () => {
-    if (record.name.length < 3) {
+    if (record.name.trim().length < 4) {
       setModalTitle('Invalid Name');
-      setModalBody('Name must be at least 3 characters long');
+      setModalBody('Name must be at least 4 characters long');
       setShowModal(true);
       return false;
     }
-    if (record.email.length < 5) {
+    if (record.email.trim().length < 9) {
       setModalTitle('Invalid Email');
-      setModalBody('Email must be at least 5 characters long');
+      setModalBody('Email must be at least 9 characters long');
       setShowModal(true);
       return false;
     }
@@ -45,7 +45,7 @@ export default function Signup() {
       setShowModal(true);
       return false;
     }
-    if (record.password.length < 6) {
+    if (record.password.trim().length < 6) {
       setModalTitle('Invalid Password');
       setModalBody('Password must be at least 6 characters long');
       setShowModal(true);
@@ -57,13 +57,13 @@ export default function Signup() {
       setShowModal(true);
       return false;
     }
-    if (record.contact.length < 11) {
-      setModalTitle('Invalid Contact Number');
-      setModalBody('Contact Number must be at least 11 characters long');
+    if (record.phone.trim().length < 10) {
+      setModalTitle('Invalid Phone Number');
+      setModalBody('Phone Number must be at least 10 characters long');
       setShowModal(true);
       return false;
     }
-    if (record.address.length < 10) {
+    if (record.address.trim().length < 10) {
       setModalTitle('Invalid Address');
       setModalBody('Address must be at least 10 characters long');
       setShowModal(true);
@@ -109,17 +109,18 @@ export default function Signup() {
           <h2 className='text-center mb-4'>Sign Up</h2>
           <Form onSubmit={handleSubmit}>
             <LabeledInput
-              label='Hospital Name'
+              label='Hospital Name *'
               controlId={'name'}
               type='text'
               name='name'
               value={record.name}
               onChange={handleChange}
               required
+              minLength={4}
               className={'mb-3'}
             />
             <LabeledInput
-              label='Email Address'
+              label='Email Address *'
               controlId={'email'}
               className='mb-3'
               type='email'
@@ -127,29 +128,32 @@ export default function Signup() {
               value={record.email}
               onChange={handleChange}
               required
+              minLength={9}
               bottomText={'We will never share your email with anyone else.'}
             />
             <LabeledInput
               className='mb-3'
               controlId='password'
-              label='Password'
+              label='Password *'
               type={showPassword ? 'text' : 'password'}
               name='password'
               value={record.password}
               onChange={(e) => handleChange(e)}
               placeholder=''
               required
+              minLength={6}
             />
             <LabeledInput
               className='mb-3'
               controlId='confirmPassword'
-              label='Confirm Password'
+              label='Confirm Password *'
               type={showPassword ? 'text' : 'password'}
               name='confirmPassword'
               value={record.confirmPassword}
               onChange={(e) => handleChange(e)}
               placeholder=''
               required
+              minLength={6}
             />
             <Form.Group className='mb-3' controlId='showPassword'>
               <Form.Check
@@ -163,19 +167,20 @@ export default function Signup() {
             </Form.Group>
             <LabeledInput
               className='mb-3'
-              controlId='contact'
-              label='Contact Number'
+              controlId='phone'
+              label='Phone Number *'
               type='tel'
               placeholder=''
-              name='contact'
-              value={record.contact}
+              name='phone'
+              value={record.phone}
               onChange={(e) => handleChange(e)}
               required
+              minLength={10}
             />
             <LabeledInput
               className='mb-3'
               controlId='address'
-              label='Address'
+              label='Address *'
               as='textarea'
               style={{ height: '100px' }}
               name='address'
@@ -183,6 +188,7 @@ export default function Signup() {
               onChange={(e) => handleChange(e)}
               placeholder=''
               required
+              minLength={10}
             />
             <div
               style={{
