@@ -31,6 +31,8 @@ export default function UpdateAccount() {
     token,
   });
 
+  const [originalRecord, setOriginalRecord] = useState(record);
+
   const checkInputs = () => {
     if (record.name.length < 3) {
       setModalTitle('Invalid Name');
@@ -65,13 +67,28 @@ export default function UpdateAccount() {
     return true;
   };
 
+  const checkIfChanged = () => {
+    if (
+      record.name === originalRecord.name &&
+      record.email === originalRecord.email &&
+      record.contact === originalRecord.contact &&
+      record.address === originalRecord.address
+    ) {
+      setModalTitle('No Changes Made');
+      setModalBody('No changes were made to the account');
+      setShowModal(true);
+      return false;
+    }
+    return true;
+  };
+
   const handleChange = (e) => {
     setRecord({ ...record, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (checkInputs()) {
+    if (checkInputs() && checkIfChanged()) {
       try {
         setIsLoading(true);
         const response = await axios.put(

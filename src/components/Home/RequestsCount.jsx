@@ -37,16 +37,6 @@ export default function RequestsCount({ hospitalRecord, isLoading }) {
             <tr>
               <td>Resources Requests (Total)</td>
               <td>{hospitalRecord.resources.requestsMadeByHospitalTotal}</td>
-              <td>
-                <Link
-                  style={{
-                    textDecoration: 'none',
-                  }}
-                  to='/resources-requests'
-                >
-                  View
-                </Link>
-              </td>
             </tr>
             <tr>
               <td>Resources Requests (Pending)</td>

@@ -13,7 +13,7 @@ export default function AccountInfo({ name, email, contact, address }) {
           color: 'white',
         }}
       >
-        {name}
+        Logged in as:
       </Card.Header>
       <Table
         style={{
@@ -21,6 +21,10 @@ export default function AccountInfo({ name, email, contact, address }) {
         }}
       >
         <tbody>
+          <tr>
+            <td>Hospital</td>
+            <td>{name}</td>
+          </tr>
           <tr>
             <td>Email</td>
             <td>{email}</td>

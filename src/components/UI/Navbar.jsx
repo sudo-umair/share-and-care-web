@@ -53,10 +53,10 @@ function NavBar() {
               to={location.pathname === '/' ? '/sign-up' : '/'}
               style={{
                 color: 'white',
-                // textDecoration: 'none',
+                fontSize: '1rem',
               }}
             >
-              {location.pathname === '/' ? 'Sign Up' : 'Sign In'}
+              {location.pathname === '/sign-up' ? 'Sign In' : 'Sign Up'}
             </NavLink>
           ) : (
             <NavDropdown
@@ -70,12 +70,19 @@ function NavBar() {
               <NavDropdown.Item as={Link} to='/volunteers'>
                 Volunteers
               </NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item as={Link} to='/update-account'>
+                Update Account
+              </NavDropdown.Item>
               <NavDropdown.Item as={Link} to='/update-password'>
                 Update Password
               </NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item as={Link} to='/' onClick={handleSignOut}>
                 Sign Out
+              </NavDropdown.Item>
+              <NavDropdown.Item as={Link} to='/' onClick={handleSignOut}>
+                Delete Account
               </NavDropdown.Item>
             </NavDropdown>
           )}
