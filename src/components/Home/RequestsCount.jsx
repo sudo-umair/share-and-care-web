@@ -1,6 +1,5 @@
 import React from 'react';
 import { Card, Table, Spinner } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import { GLOBALSTYLES as GS } from '../../utils/styles';
 
 export default function RequestsCount({ hospitalRecord, isLoading }) {
