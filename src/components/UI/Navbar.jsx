@@ -59,32 +59,49 @@ function NavBar() {
               {location.pathname === '/' ? 'Sign Up' : 'Sign In'}
             </NavLink>
           ) : (
-            <NavDropdown
-              title={<Avatar name={name} title={name} size={30} round={true} />}
-              menuVariant='dark'
-              id='basic-nav-dropdown'
-            >
-              <NavDropdown.Item as={Link} to='/resources'>
-                Resources
-              </NavDropdown.Item>
-              <NavDropdown.Item as={Link} to='/volunteers'>
-                Volunteers
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item as={Link} to='/update-account'>
-                Update Account
-              </NavDropdown.Item>
-              <NavDropdown.Item as={Link} to='/update-password'>
-                Update Password
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item as={Link} to='/' onClick={handleSignOut}>
-                Sign Out
-              </NavDropdown.Item>
-              <NavDropdown.Item as={Link} to='/' onClick={handleSignOut}>
-                Delete Account
-              </NavDropdown.Item>
-            </NavDropdown>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              {location.pathname === '/resources' && (
+                <NavLink
+                  to='/resource-request'
+                  style={{
+                    color: 'white',
+                    marginRight: '1rem',
+                    fontSize: '1rem',
+                  }}
+                >
+                  Request Resource
+                </NavLink>
+              )}
+
+              <NavDropdown
+                title={
+                  <Avatar name={name} title={name} size={30} round={true} />
+                }
+                menuVariant='dark'
+                id='basic-nav-dropdown'
+              >
+                <NavDropdown.Item as={Link} to='/resources'>
+                  Resources
+                </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to='/volunteers'>
+                  Volunteers
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item as={Link} to='/update-account'>
+                  Update Account
+                </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to='/update-password'>
+                  Update Password
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item as={Link} to='/' onClick={handleSignOut}>
+                  Sign Out
+                </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to='/' onClick={handleSignOut}>
+                  Delete Account
+                </NavDropdown.Item>
+              </NavDropdown>
+            </div>
           )}
         </Navbar.Brand>
       </Container>
