@@ -12,6 +12,7 @@ export default function Resources() {
   const [resources, setResources] = useState([]);
   const [filteredResources, setFilteredResources] = useState([]);
   const [activeResource, setActiveResource] = useState({});
+  const [refresh, setRefresh] = useState(false);
 
   const hospital = useSelector((state) => state.hospital);
   const { email } = hospital;
@@ -77,7 +78,8 @@ export default function Resources() {
       setIsLoading(false);
     };
     fetchData();
-  }, []);
+    setActiveResource({});
+  }, [refresh, radioValue]);
 
   useEffect(() => {
     setFilteredResources(filterResources(radioValue, resources));
@@ -122,7 +124,11 @@ export default function Resources() {
             isLoading={isLoading}
           />
 
-          <RightPane hospital={hospital} activeResource={activeResource} />
+          <RightPane
+            hospital={hospital}
+            activeResource={activeResource}
+            setRefresh={setRefresh}
+          />
         </div>
       </div>
     </Container>

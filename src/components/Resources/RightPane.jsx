@@ -1,7 +1,102 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ButtonView from '../UI/ButtonView';
+import { toast } from 'react-toastify';
+import axios from 'axios';
+import { GLOBALS } from '../../utils/constants';
 
-export default function RightPane({ activeResource, hospital }) {
+export default function RightPane({ activeResource, hospital, setRefresh }) {
+  const [isLoading1, setIsLoading1] = useState(false);
+  const [isLoading2, setIsLoading2] = useState(false);
+  const [isLoading3, setIsLoading3] = useState(false);
+
+  const handleApproveRequest = async () => {
+    if (activeResource.requestedByEmail === hospital.email) {
+      toast.error('You cannot approve your own request');
+    } else {
+      const record = {
+        id: activeResource._id,
+        requestStatus: 'Approved',
+        approvedByName: hospital.name,
+        approvedByEmail: hospital.email,
+        approvedByPhone: hospital.phone,
+      };
+      setIsLoading1(true);
+      await axios
+        .put(`${GLOBALS.BASE_URL}/resources/approveRequest`, record)
+        .then((response) => {
+          if (response.data.status === '200') {
+            toast.success('Request Approved');
+          } else {
+            toast.error('Error approving request');
+          }
+        })
+        .catch((error) => {
+          toast.error('Error approving request');
+        })
+        .finally(() => {
+          setIsLoading1(false);
+          setRefresh((prev) => !prev);
+        });
+    }
+  };
+
+  const handleHideRequest = async (id) => {
+    if (activeResource.requestedByEmail === hospital.email) {
+      toast.error('You cannot hide your own request');
+    } else {
+      const record = {
+        id: activeResource._id,
+        email: hospital.email,
+      };
+      setIsLoading2(true);
+      await axios
+        .put(`${GLOBALS.BASE_URL}/resources/hideRequest`, record)
+        .then((response) => {
+          if (response.data.status === '200') {
+            toast.success(response.data.message);
+          } else {
+            toast.error(response.data.message);
+          }
+        })
+        .catch((error) => {
+          toast.error('Error hiding request');
+        })
+        .finally(() => {
+          setIsLoading2(false);
+          setRefresh((prev) => !prev);
+        });
+    }
+  };
+
+  const handleDeleteRequest = async () => {
+    if (activeResource.requestedByEmail !== hospital.email) {
+      toast.error("You cannot delete someone else's request");
+    } else {
+      const record = {
+        id: activeResource._id,
+        email: hospital.email,
+      };
+      setIsLoading3(true);
+      await axios
+        .post(`${GLOBALS.BASE_URL}/resources/deleteRequest`, record)
+        .then((response) => {
+          if (response.data.status === '200') {
+            toast.success(response.data.message);
+          } else {
+            toast.error(response.data.message);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          toast.error('Error deleting request');
+        })
+        .finally(() => {
+          setIsLoading3(false);
+          setRefresh((prev) => !prev);
+        });
+    }
+  };
+
   if (JSON.stringify(activeResource) === '{}') {
     return null;
   }
@@ -100,18 +195,16 @@ export default function RightPane({ activeResource, hospital }) {
               <ButtonView
                 type='button'
                 variant='primary'
-                onClick={() => {
-                  console.log('Ignore');
-                }}
+                isLoading={isLoading1}
+                onClick={handleApproveRequest}
               >
                 Approve Request
               </ButtonView>
               <ButtonView
                 type='button'
                 variant='secondary'
-                onClick={() => {
-                  console.log('Ignore');
-                }}
+                isLoading={isLoading2}
+                onClick={handleHideRequest}
               >
                 Hide Request
               </ButtonView>
@@ -123,9 +216,8 @@ export default function RightPane({ activeResource, hospital }) {
             <ButtonView
               type='button'
               variant='danger'
-              onClick={() => {
-                console.log('Ignore');
-              }}
+              isLoading={isLoading3}
+              onClick={handleDeleteRequest}
             >
               Delete Request
             </ButtonView>
