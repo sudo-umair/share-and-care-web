@@ -82,6 +82,7 @@ function NavBar() {
               style={{
                 color: 'white',
                 textDecoration: 'none',
+                marginLeft: '0.5rem',
               }}
             >
               Share & Care

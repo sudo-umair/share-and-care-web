@@ -1,4 +1,4 @@
 export const GLOBALSTYLES = {
   primary: '#356aba',
-  secondary: '#224e91',
+  secondary: '#193f77',
 };

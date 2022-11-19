@@ -13,7 +13,9 @@ export default function Resources() {
   const [filteredResources, setFilteredResources] = useState([]);
   const [activeResource, setActiveResource] = useState({});
 
-  const { email } = useSelector((state) => state.hospital);
+  const hospital = useSelector((state) => state.hospital);
+  const { email } = hospital;
+
   const radios = [
     { name: 'Feed (Users)', value: '1' },
     { name: 'Feed (Hospitals)', value: '2' },
@@ -26,31 +28,37 @@ export default function Resources() {
   const filterResources = (radioValue, resources) => {
     switch (radioValue) {
       case '1':
-        return resources.filter(
-          (resource) =>
-            resource.requestStatus === 'Pending' &&
-            resource.requestedByEmail !== email &&
-            resource.userType === 'user' &&
-            resource.ignoredBy.includes(email) === false
-        );
+        return resources
+          .filter(
+            (resource) =>
+              resource.requestStatus === 'Pending' &&
+              resource.requestedByEmail !== email &&
+              resource.userType === 'user' &&
+              resource.ignoredBy.includes(email) === false
+          )
+          .reverse();
       case '2':
-        return resources.filter(
-          (resource) =>
-            resource.requestStatus === 'Pending' &&
-            resource.requestedByEmail !== email &&
-            resource.userType === 'Hospital' &&
-            resource.ignoredBy.includes(email) === false
-        );
+        return resources
+          .filter(
+            (resource) =>
+              resource.requestStatus === 'Pending' &&
+              resource.requestedByEmail !== email &&
+              resource.userType === 'hospital' &&
+              resource.ignoredBy.includes(email) === false
+          )
+          .reverse();
       case '3':
-        return resources.filter(
-          (resource) =>
-            resource.requestStatus === 'Approved' &&
-            resource.approvedByEmail === email
-        );
+        return resources
+          .filter(
+            (resource) =>
+              resource.requestStatus === 'Approved' &&
+              resource.approvedByEmail === email
+          )
+          .reverse();
       case '4':
-        return resources.filter(
-          (resource) => resource.requestedByEmail === email
-        );
+        return resources
+          .filter((resource) => resource.requestedByEmail === email)
+          .reverse();
       default:
         return resources;
     }
@@ -107,7 +115,6 @@ export default function Resources() {
           id='content'
         >
           <LeftPane
-            // resources={resources}
             resources={filteredResources}
             handleSelectResource={handleSelectResource}
             activeResource={activeResource}
@@ -115,7 +122,7 @@ export default function Resources() {
             isLoading={isLoading}
           />
 
-          <RightPane activeResource={activeResource} />
+          <RightPane hospital={hospital} activeResource={activeResource} />
         </div>
       </div>
     </Container>

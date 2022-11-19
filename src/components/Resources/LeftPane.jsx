@@ -69,7 +69,6 @@ export default function LeftPane({
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
-                        marginRight: '0.5rem',
                         color: 'black',
                         fontSize: '0.6rem',
                         height: '20px',
@@ -92,6 +91,7 @@ export default function LeftPane({
                           display: 'flex',
                           justifyContent: 'center',
                           alignItems: 'center',
+                          marginLeft: '0.5rem',
                           color:
                             resource.requestStatus === 'Approved'
                               ? 'white'
