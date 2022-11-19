@@ -31,6 +31,7 @@ export default function RequestsCount({ hospitalRecord, isLoading }) {
             marginBottom: 0,
           }}
           striped
+          hover
         >
           <tbody>
             <tr>

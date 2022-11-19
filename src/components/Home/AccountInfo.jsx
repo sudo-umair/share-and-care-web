@@ -19,6 +19,8 @@ export default function AccountInfo({ name, email, phone, address }) {
         style={{
           marginBottom: 0,
         }}
+        striped
+        hover
       >
         <tbody>
           <tr>
