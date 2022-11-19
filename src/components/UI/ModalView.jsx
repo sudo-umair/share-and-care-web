@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, Modal } from 'react-bootstrap';
+import { Modal, Button } from 'react-bootstrap';
+import ButtonView from './ButtonView';
 
 export default function ModalView({
   showModal,
@@ -8,6 +9,8 @@ export default function ModalView({
   modalBody,
   action2Function,
   action2Text,
+  action2Color,
+  isLoading,
 }) {
   return (
     <Modal show={showModal} onHide={() => setShowModal(false)}>
@@ -16,22 +19,21 @@ export default function ModalView({
       </Modal.Header>
       <Modal.Body>{modalBody}</Modal.Body>
       <Modal.Footer>
-        {action2Function && (
-          <Button
-            variant='secondary'
-            size='sm'
-            onClick={() => action2Function()}
+        {action2Text && (
+          <ButtonView
+            variant={action2Color}
+            isLoading={isLoading}
+            onClick={() => {
+              action2Function();
+              setShowModal(false);
+            }}
           >
             {action2Text}
-          </Button>
+          </ButtonView>
         )}
-        <Button
-          variant='secondary'
-          size='sm'
-          onClick={() => setShowModal(false)}
-        >
+        <ButtonView variant='secondary' onClick={() => setShowModal(false)}>
           Close
-        </Button>
+        </ButtonView>
       </Modal.Footer>
     </Modal>
   );

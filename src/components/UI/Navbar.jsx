@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
@@ -9,6 +10,7 @@ import Avatar from 'react-avatar';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { GLOBALS } from '../../utils/constants';
+import ModalView from './ModalView';
 
 function NavBar() {
   const location = useLocation();
@@ -16,6 +18,12 @@ function NavBar() {
   const { isLoggedIn, name, email, token } = useSelector(
     (state) => state.hospital
   );
+
+  const [showModal, setShowModal] = useState(false);
+  const [modalBody, setModalBody] = useState(null);
+  const [modalTitle, setModalTitle] = useState(null);
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSignOut = async () => {
     dispatch(removeHospital());
@@ -26,86 +34,145 @@ function NavBar() {
     });
   };
 
+  const deleteAccount = async () => {
+    setIsLoading(true);
+    await axios
+      .post(`${GLOBALS.BASE_URL}/hospitals/delete-account`, {
+        email,
+        token,
+      })
+      .then((res) => {
+        if (res.data.status === '200') {
+          toast.success(res.data.message);
+          dispatch(removeHospital());
+        } else {
+          toast.error(res.data.message);
+        }
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
+
+  const handleDeleteAccount = () => {
+    setModalTitle('Delete Account');
+    setModalBody(
+      'Are you sure you want to delete your account? This action cannot be undone.'
+    );
+    setShowModal(true);
+  };
+
   return (
-    <Navbar bg='dark' variant='dark'>
-      <Container>
-        <Navbar.Brand>
-          <img
-            alt=''
-            src={Logo}
-            width='30'
-            height='30'
-            className='d-inline-block align-top'
-          />
-          <NavLink
-            to={isLoggedIn ? '/home' : '/'}
-            style={{
-              color: 'white',
-              textDecoration: 'none',
-            }}
-          >
-            Share & Care
-          </NavLink>
-        </Navbar.Brand>
-        <Navbar.Brand>
-          {!isLoggedIn ? (
+    <>
+      <Navbar bg='dark' variant='dark'>
+        <Container>
+          <Navbar.Brand>
+            <img
+              alt=''
+              src={Logo}
+              width='30'
+              height='30'
+              className='d-inline-block align-top'
+            />
             <NavLink
-              to={location.pathname === '/' ? '/sign-up' : '/'}
+              to={isLoggedIn ? '/home' : '/'}
               style={{
                 color: 'white',
-                fontSize: '1rem',
+                textDecoration: 'none',
               }}
             >
-              {location.pathname === '/' ? 'Sign Up' : 'Sign In'}
+              Share & Care
             </NavLink>
-          ) : (
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              {location.pathname === '/resources' && (
-                <NavLink
-                  to='/resource-request'
-                  style={{
-                    color: 'white',
-                    marginRight: '1rem',
-                    fontSize: '1rem',
-                  }}
-                >
-                  Request Resource
-                </NavLink>
-              )}
-
-              <NavDropdown
-                title={
-                  <Avatar name={name} title={name} size={30} round={true} />
-                }
-                menuVariant='dark'
-                id='basic-nav-dropdown'
+          </Navbar.Brand>
+          <Navbar.Brand>
+            {!isLoggedIn ? (
+              <NavLink
+                to={location.pathname === '/' ? '/sign-up' : '/'}
+                style={{
+                  color: 'white',
+                  fontSize: '1rem',
+                }}
               >
-                <NavDropdown.Item as={Link} to='/resources'>
-                  Resources
-                </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to='/volunteers'>
-                  Volunteers
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item as={Link} to='/update-account'>
-                  Update Account
-                </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to='/update-password'>
-                  Update Password
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item as={Link} to='/' onClick={handleSignOut}>
-                  Sign Out
-                </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to='/' onClick={handleSignOut}>
-                  Delete Account
-                </NavDropdown.Item>
-              </NavDropdown>
-            </div>
-          )}
-        </Navbar.Brand>
-      </Container>
-    </Navbar>
+                {location.pathname === '/' ? 'Sign Up' : 'Sign In'}
+              </NavLink>
+            ) : (
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                {location.pathname === '/resources' && (
+                  <NavLink
+                    to='/resource-request'
+                    style={{
+                      color: 'white',
+                      marginRight: '1rem',
+                      fontSize: '1rem',
+                    }}
+                  >
+                    Request Resource
+                  </NavLink>
+                )}
+                {location.pathname === '/home' && (
+                  <NavLink
+                    to='/resources'
+                    style={{
+                      color: 'white',
+                      marginRight: '1rem',
+                      fontSize: '1rem',
+                    }}
+                  >
+                    Resources
+                  </NavLink>
+                )}
+                {location.pathname === '/home' && (
+                  <NavLink
+                    to='/volunteers'
+                    style={{
+                      color: 'white',
+                      marginRight: '1rem',
+                      fontSize: '1rem',
+                    }}
+                  >
+                    Volunteers
+                  </NavLink>
+                )}
+                <NavDropdown
+                  title={
+                    <Avatar name={name} title={name} size={30} round={true} />
+                  }
+                  menuVariant='dark'
+                  id='basic-nav-dropdown'
+                >
+                  {/* <NavDropdown.Divider /> */}
+                  <NavDropdown.Item as={Link} to='/update-account'>
+                    Update Account
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to='/update-password'>
+                    Update Password
+                  </NavDropdown.Item>
+                  <NavDropdown.Item onClick={handleDeleteAccount}>
+                    Delete Account
+                  </NavDropdown.Item>
+                  <NavDropdown.Item onClick={handleSignOut}>
+                    Sign Out
+                  </NavDropdown.Item>
+                </NavDropdown>
+              </div>
+            )}
+          </Navbar.Brand>
+        </Container>
+      </Navbar>
+      <ModalView
+        modalBody={modalBody}
+        modalTitle={modalTitle}
+        showModal={showModal}
+        setShowModal={setShowModal}
+        action2Text='Delete Account'
+        action2Function={deleteAccount}
+        action2Color='danger'
+        isLoading={isLoading}
+      />
+    </>
   );
 }
 

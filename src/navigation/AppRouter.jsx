@@ -1,5 +1,11 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+  Outlet,
+} from 'react-router-dom';
 import { ConfigProvider as AvatarProvider } from 'react-avatar';
 import { useSelector } from 'react-redux';
 //navbar
@@ -14,8 +20,17 @@ import ForgotPassword from '../routes/ForgotPassword';
 import Resources from '../routes/Resources';
 import ResourceRequest from '../routes/ResourceRequest';
 
-export default function AppRouter() {
+function ProtectedRoutes() {
   const { isLoggedIn } = useSelector((state) => state.hospital);
+
+  if (!isLoggedIn) {
+    return <Navigate to='/' replace />;
+  }
+
+  return <Outlet />;
+}
+
+export default function AppRouter() {
   return (
     <Router>
       <AvatarProvider>
@@ -26,23 +41,15 @@ export default function AppRouter() {
         <Route path='/sign-up' element={<Signup />} />
         <Route path='/forgot-password' element={<ForgotPassword />} />
 
-        <Route path='/home' element={isLoggedIn ? <Home /> : <Signin />} />
-        <Route
-          path='/update-account'
-          element={isLoggedIn ? <UpdateAccount /> : <Signin />}
-        />
-        <Route
-          path='/update-password'
-          element={isLoggedIn ? <UpdatePassword /> : <Signin />}
-        />
-        <Route
-          path='/resources'
-          element={isLoggedIn ? <Resources /> : <Signin />}
-        />
-        <Route
-          path='/resource-request'
-          element={isLoggedIn ? <ResourceRequest /> : <Signin />}
-        />
+        {/* Protected Routes */}
+        <Route element={<ProtectedRoutes />}>
+          <Route path='/home' element={<Home />} />
+          <Route path='/update-account' element={<UpdateAccount />} />
+          <Route path='/update-password' element={<UpdatePassword />} />
+          <Route path='/resources' element={<Resources />} />
+          <Route path='/resource-request' element={<ResourceRequest />} />
+        </Route>
+
         <Route path='*' element={<h1>404</h1>} />
       </Routes>
     </Router>
