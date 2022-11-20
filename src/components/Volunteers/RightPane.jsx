@@ -151,10 +151,19 @@ export default function RightPane({ activeVolunteer, setRefresh }) {
         </ButtonView>
       </div>
       <hr />
+      <h4
+        style={{
+          textAlign: 'center',
+          marginBottom: '1rem',
+        }}
+      >
+        Applicants
+      </h4>
       <Applicants
         applicants={activeVolunteer.applicants}
         setRefresh={setRefresh}
       />
+      <hr />
     </div>
   );
 }
