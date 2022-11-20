@@ -47,7 +47,13 @@ export default function LabeledInput({
         disabled={disabled ?? false}
         maxLength={maxLength ?? 100}
         minLength={minLength ?? 0}
-        title={`Enter ${label.slice(0, -2)} here`}
+        title={
+          disabled
+            ? 'This field is disabled'
+            : label.endsWith('*')
+            ? `Enter ${label.slice(0, -2)} here`
+            : `Enter ${label} here`
+        }
       />
       {bottomText && <Form.Text className='text-muted'>{bottomText}</Form.Text>}
     </Form.Group>
