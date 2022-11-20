@@ -19,6 +19,8 @@ import UpdatePassword from '../routes/UpdatePassword';
 import ForgotPassword from '../routes/ForgotPassword';
 import Resources from '../routes/Resources';
 import ResourceRequest from '../routes/ResourceRequest';
+import Volunteers from '../routes/Volunteers';
+import VolunteerRequest from '../routes/VolunteerRequest';
 
 function ProtectedRoutes() {
   const { isLoggedIn } = useSelector((state) => state.hospital);
@@ -48,8 +50,9 @@ export default function AppRouter() {
           <Route path='/update-password' element={<UpdatePassword />} />
           <Route path='/resources' element={<Resources />} />
           <Route path='/resource-request' element={<ResourceRequest />} />
+          <Route path='/volunteers' element={<Volunteers />} />
+          <Route path='/volunteer-request' element={<VolunteerRequest />} />
         </Route>
-
         <Route path='*' element={<h1>404</h1>} />
       </Routes>
     </Router>

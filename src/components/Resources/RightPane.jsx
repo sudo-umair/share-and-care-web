@@ -40,7 +40,7 @@ export default function RightPane({ activeResource, hospital, setRefresh }) {
     }
   };
 
-  const handleHideRequest = async (id) => {
+  const handleHideRequest = async () => {
     if (activeResource.requestedByEmail === hospital.email) {
       toast.error('You cannot hide your own request');
     } else {
@@ -119,7 +119,7 @@ export default function RightPane({ activeResource, hospital, setRefresh }) {
         }}
       >
         <h4>{activeResource.resourceName}</h4>
-        <p style={STYLES.text}>
+        <p style={{ ...STYLES.text, marginBottom: '0.5rem' }}>
           Request Status:
           <span
             style={{

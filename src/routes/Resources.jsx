@@ -61,7 +61,7 @@ export default function Resources() {
           .filter((resource) => resource.requestedByEmail === email)
           .reverse();
       default:
-        return resources;
+        return resources.reverse();
     }
   };
 

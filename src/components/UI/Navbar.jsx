@@ -113,6 +113,18 @@ function NavBar() {
                     Request Resource
                   </NavLink>
                 )}
+                {location.pathname === '/volunteers' && (
+                  <NavLink
+                    to='/volunteer-request'
+                    style={{
+                      color: 'white',
+                      marginRight: '1rem',
+                      fontSize: '1rem',
+                    }}
+                  >
+                    Request Volunteers
+                  </NavLink>
+                )}
                 {location.pathname === '/home' && (
                   <NavLink
                     to='/resources'
