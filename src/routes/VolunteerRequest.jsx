@@ -22,34 +22,38 @@ export default function VolunteerRequest() {
   const [isLoading, setIsLoading] = useState(false);
 
   const [record, setRecord] = useState({
-    userType: 'hospital',
-    resourceName: '',
-    resourceQuantity: '',
-    resourceDuration: '',
-    resourceNotes: '',
-    requestedByName: name,
-    requestedByEmail: email,
-    requestedByPhone: phone,
-    requestedByAddress: address,
+    hospitalName: name,
+    hospitalEmail: email,
+    hospitalPhone: phone,
+    hospitalLocation: address,
+    volunteerRequestTitle: '',
+    timeDuration: '',
+    volunteersRequired: '',
+    volunteerRequestDescription: '',
   });
 
   const checkInputs = () => {
-    if (record.resourceName.trim().length < 3) {
-      setModalTitle('Invalid Resource Name');
-      setModalBody('Resource Name must be at least 3 characters long');
-      setShowModal(true);
+    if (record.volunteerRequestTitle.trim().length === 0) {
+      setModalTitle('Invalid Title');
+      setModalBody('Please enter a title for your request');
       return false;
     }
-    if (record.resourceQuantity.trim().length < 1) {
-      setModalTitle('Invalid Resource Quantity');
-      setModalBody('Resource Quantity must be at least 1 characters long');
-      setShowModal(true);
+
+    if (record.timeDuration.trim().length === 0) {
+      setModalTitle('Invalid Time Duration');
+      setModalBody('Please enter a time duration for your request');
       return false;
     }
-    if (record.resourceDuration.trim().length < 1) {
-      setModalTitle('Invalid Resource Duration');
-      setModalBody('Resource Duration must be at least 1 characters long');
-      setShowModal(true);
+
+    if (record.volunteersRequired.trim().length === 0) {
+      setModalTitle('Invalid Volunteers Required');
+      setModalBody('Please enter the number of volunteers required');
+      return false;
+    }
+
+    if (record.volunteerRequestDescription.trim().length === 0) {
+      setModalTitle('Invalid Description');
+      setModalBody('Please enter a description for your request');
       return false;
     }
     return true;
@@ -65,13 +69,13 @@ export default function VolunteerRequest() {
       try {
         setIsLoading(true);
         const response = await axios.post(
-          `${GLOBALS.BASE_URL}/resources/postRequest`,
+          `${GLOBALS.BASE_URL}/volunteers/createVolunteerRequest`,
           record
         );
         setIsLoading(false);
-        if (response.data.status === '201') {
+        if (response.data.status === '200') {
           toast.success('Request Posted Successfully');
-          navigate('/resources');
+          navigate('/volunteers');
         } else {
           toast.error(response.data.message);
         }
@@ -87,28 +91,27 @@ export default function VolunteerRequest() {
     <>
       <Container className='d-flex align-items-center justify-content-center my-3'>
         <div className='w-100' style={{ maxWidth: '400px' }}>
-          <h2 className='text-center mb-4'>New Resource Request</h2>
+          <h2 className='text-center mb-4'>New Volunteers Request</h2>
           <Form onSubmit={handleSubmit}>
             <LabeledInput
-              label='Name *'
-              controlId={'resourceName'}
+              label='Title *'
+              controlId={'volunteerRequestTitle'}
               type='text'
-              name='resourceName'
-              value={record.resourceName}
+              name='volunteerRequestTitle'
+              value={record.volunteerRequestTitle}
               onChange={handleChange}
               required
               className={'mb-3'}
-              minLength={3}
-              placeholder='Blood Bags'
-              bottomText={'Use one form for each resource'}
+              minLength={5}
+              placeholder='Need Volunteers Immediately'
             />
             <LabeledInput
-              label='Quantity *'
-              controlId={'resourceQuantity'}
+              label='Volunteers Required *'
+              controlId={'volunteersRequired'}
               className='mb-3'
               type='text'
-              name='resourceQuantity'
-              value={record.resourceQuantity}
+              name='volunteersRequired'
+              value={record.volunteersRequired}
               onChange={handleChange}
               required
               placeholder='10'
@@ -117,26 +120,28 @@ export default function VolunteerRequest() {
             <LabeledInput
               label='Duration *'
               className='mb-3'
-              controlId='resourceDuration'
+              controlId='timeDuration'
               type='text'
-              name='resourceDuration'
-              value={record.resourceDuration}
+              name='timeDuration'
+              value={record.timeDuration}
               onChange={(e) => handleChange(e)}
-              placeholder='3 days'
+              placeholder='15 days'
               required
-              minLength={3}
+              minLength={5}
             />
             <LabeledInput
               className={'mb-3'}
-              controlId='resourceNotes'
-              label='Additional Notes'
+              controlId='volunteerRequestDescription'
+              label='Description *'
               type='text-area'
               as='textarea'
               style={{ height: '100px' }}
-              name='resourceNotes'
-              value={record.resourceNotes}
+              name='volunteerRequestDescription'
+              value={record.volunteerRequestDescription}
               onChange={(e) => handleChange(e)}
               placeholder=''
+              required
+              minLength={10}
             />
             <div
               style={{
