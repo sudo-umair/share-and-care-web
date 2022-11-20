@@ -33,27 +33,27 @@ export default function VolunteerRequest() {
   });
 
   const checkInputs = () => {
-    if (record.volunteerRequestTitle.trim().length === 0) {
+    if (record.volunteerRequestTitle.trim().length < 5) {
       setModalTitle('Invalid Title');
-      setModalBody('Please enter a title for your request');
+      setModalBody('Please enter a valid title');
       return false;
     }
 
-    if (record.timeDuration.trim().length === 0) {
+    if (record.timeDuration.trim().length < 5) {
       setModalTitle('Invalid Time Duration');
-      setModalBody('Please enter a time duration for your request');
+      setModalBody('Please enter a valid time duration');
       return false;
     }
 
-    if (record.volunteersRequired.trim().length === 0) {
+    if (record.volunteersRequired.trim().length < 1) {
       setModalTitle('Invalid Volunteers Required');
       setModalBody('Please enter the number of volunteers required');
       return false;
     }
 
-    if (record.volunteerRequestDescription.trim().length === 0) {
+    if (record.volunteerRequestDescription.trim().length < 10) {
       setModalTitle('Invalid Description');
-      setModalBody('Please enter a description for your request');
+      setModalBody('Please enter a valid description');
       return false;
     }
     return true;
