@@ -51,7 +51,7 @@ export default function Volunteers() {
     };
     fetchData();
     setActiveVolunteer({});
-  }, [refresh, radioValue]);
+  }, [refresh, radioValue, email]);
 
   useEffect(() => {
     setFilteredVolunteers(filterVolunteers(radioValue, volunteers));

@@ -8,6 +8,7 @@ export default function ButtonView({
   children,
   isLoading,
   style,
+  title,
 }) {
   return (
     <Button
@@ -16,6 +17,7 @@ export default function ButtonView({
       onClick={onClick}
       variant={variant}
       type={type}
+      title={typeof children === 'string' ? children : title}
     >
       {children}
       {isLoading && (

@@ -3,6 +3,7 @@ import ButtonView from '../UI/ButtonView';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { GLOBALS } from '../../utils/constants';
+import Applicants from './Applicants';
 
 export default function RightPane({ activeVolunteer, setRefresh }) {
   const [isLoading1, setIsLoading1] = useState(false);
@@ -66,6 +67,7 @@ export default function RightPane({ activeVolunteer, setRefresh }) {
         display: 'flex',
         flexDirection: 'column',
         padding: '0.8rem',
+        overflowY: 'scroll',
       }}
       id='right-pane'
     >
@@ -102,6 +104,9 @@ export default function RightPane({ activeVolunteer, setRefresh }) {
           }}
         >
           Volunteers Required: {activeVolunteer.volunteersRequired}
+        </p>
+        <p style={STYLES.text}>
+          Applicants: {activeVolunteer.applicants.length}
         </p>
         <p style={STYLES.text}>Duration: {activeVolunteer.timeDuration}</p>
 
@@ -145,6 +150,11 @@ export default function RightPane({ activeVolunteer, setRefresh }) {
           Delete Request
         </ButtonView>
       </div>
+      <hr />
+      <Applicants
+        applicants={activeVolunteer.applicants}
+        setRefresh={setRefresh}
+      />
     </div>
   );
 }
