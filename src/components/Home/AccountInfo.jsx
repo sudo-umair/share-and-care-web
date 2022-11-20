@@ -55,8 +55,7 @@ export default function AccountInfo({ name, email, phone, address }) {
           }}
           to='/update-account'
         >
-          {' '}
-          Update Account{' '}
+          Update Account
         </Link>
       </Card.Footer>
     </Card>

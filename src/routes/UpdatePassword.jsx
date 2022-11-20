@@ -21,6 +21,7 @@ export default function UpdatePassword() {
   const [isLoading, setIsLoading] = useState(false);
 
   const [record, setRecord] = useState({
+    email,
     password: '',
     newPassword: '',
     confirmNewPassword: '',
@@ -30,28 +31,24 @@ export default function UpdatePassword() {
     if (record.password.trim().length < 6) {
       setModalTitle('Invalid Password');
       setModalBody('Password must be at least 6 characters long');
-      setShowModal(true);
       return false;
     }
 
     if (record.newPassword.trim().length < 6) {
       setModalTitle('Invalid New Password');
       setModalBody('New Password must be at least 6 characters long');
-      setShowModal(true);
       return false;
     }
 
     if (record.password === record.newPassword) {
       setModalTitle('Invalid New Password');
       setModalBody('New Password must be different from the old one');
-      setShowModal(true);
       return false;
     }
 
     if (record.newPassword !== record.confirmNewPassword) {
       setModalTitle('Invalid Password');
       setModalBody('New Password and Confirm New Password must be same');
-      setShowModal(true);
       return false;
     }
 
@@ -76,7 +73,7 @@ export default function UpdatePassword() {
         setIsLoading(false);
         if (response.data.status === '200') {
           toast.success('Password Updated');
-          navigate('/');
+          navigate('/home');
         } else {
           toast.error(response.data.message);
         }
@@ -95,6 +92,19 @@ export default function UpdatePassword() {
           <h2 className='text-center'>Update Password</h2>
           <p className='text-center mb-4'>{email}</p>
           <Form onSubmit={handleSubmit}>
+            <LabeledInput
+              label='Email'
+              controlId='email'
+              className='mb-3'
+              name='email'
+              value={record.email}
+              onChange={handleChange}
+              placeholder=''
+              type='email'
+              disabled
+              minLength={9}
+            />
+
             <LabeledInput
               className='mb-3'
               controlId='password'

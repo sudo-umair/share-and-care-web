@@ -5,6 +5,7 @@ import AccountInfo from '../components/Home/AccountInfo';
 import RequestsCount from '../components/Home/RequestsCount';
 import axios from 'axios';
 import { GLOBALS } from '../utils/constants';
+import { toast } from 'react-toastify';
 
 export default function Home() {
   const [hospitalRecord, setHospitalRecord] = useState({});
@@ -24,6 +25,7 @@ export default function Home() {
         })
         .catch((err) => {
           console.log(err);
+          toast.error(err.message);
         })
         .finally(() => {
           setLoading(false);

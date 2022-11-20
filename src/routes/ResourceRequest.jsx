@@ -37,19 +37,16 @@ export default function ResourceRequest() {
     if (record.resourceName.trim().length < 3) {
       setModalTitle('Invalid Resource Name');
       setModalBody('Resource Name must be at least 3 characters long');
-      setShowModal(true);
       return false;
     }
     if (record.resourceQuantity.trim().length < 1) {
       setModalTitle('Invalid Resource Quantity');
       setModalBody('Resource Quantity must be at least 1 characters long');
-      setShowModal(true);
       return false;
     }
     if (record.resourceDuration.trim().length < 1) {
       setModalTitle('Invalid Resource Duration');
       setModalBody('Resource Duration must be at least 1 characters long');
-      setShowModal(true);
       return false;
     }
     return true;

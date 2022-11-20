@@ -30,43 +30,36 @@ export default function Signup() {
     if (record.name.trim().length < 4) {
       setModalTitle('Invalid Name');
       setModalBody('Name must be at least 4 characters long');
-      setShowModal(true);
       return false;
     }
     if (record.email.trim().length < 9) {
       setModalTitle('Invalid Email');
       setModalBody('Email must be at least 9 characters long');
-      setShowModal(true);
       return false;
     }
     if (!record.email.includes('@') || !record.email.endsWith('.com')) {
       setModalTitle('Invalid Email');
       setModalBody('Email must contain @ and end with .com');
-      setShowModal(true);
       return false;
     }
     if (record.password.trim().length < 6) {
       setModalTitle('Invalid Password');
       setModalBody('Password must be at least 6 characters long');
-      setShowModal(true);
       return false;
     }
     if (record.password !== record.confirmPassword) {
       setModalTitle('Invalid Password');
       setModalBody('Password and Confirm Password must be same');
-      setShowModal(true);
       return false;
     }
     if (record.phone.trim().length < 10) {
       setModalTitle('Invalid Phone Number');
       setModalBody('Phone Number must be at least 10 characters long');
-      setShowModal(true);
       return false;
     }
     if (record.address.trim().length < 10) {
       setModalTitle('Invalid Address');
       setModalBody('Address must be at least 10 characters long');
-      setShowModal(true);
       return false;
     }
     return true;

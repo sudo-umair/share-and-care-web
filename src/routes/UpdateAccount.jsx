@@ -37,31 +37,26 @@ export default function UpdateAccount() {
     if (record.name.trim().length < 4) {
       setModalTitle('Invalid Name');
       setModalBody('Name must be at least 4 characters long');
-      setShowModal(true);
       return false;
     }
     if (record.email.trim().length < 9) {
       setModalTitle('Invalid Email');
       setModalBody('Email must be at least 9 characters long');
-      setShowModal(true);
       return false;
     }
     if (!record.email.includes('@') || !record.email.endsWith('.com')) {
       setModalTitle('Invalid Email');
       setModalBody('Email must contain @ and end with .com');
-      setShowModal(true);
       return false;
     }
     if (record.phone.trim().length < 10) {
       setModalTitle('Invalid Phone Number');
       setModalBody('Phone Number must be at least 10 characters long');
-      setShowModal(true);
       return false;
     }
     if (record.address.trim().length < 10) {
       setModalTitle('Invalid Address');
       setModalBody('Address must be at least 10 characters long');
-      setShowModal(true);
       return false;
     }
     return true;
@@ -96,14 +91,12 @@ export default function UpdateAccount() {
           record
         );
         setIsLoading(false);
-        if (response.data.status !== '200') {
-          setModalTitle('Account Update Failed');
-          setModalBody(response.data.message);
-          setShowModal(true);
-        } else {
+        if (response.data.status === '200') {
           toast.success('Account Updated');
           dispatch(setHospital(response.data?.hospital));
           navigate('/home');
+        } else {
+          toast.warning(response.data.message);
         }
       } catch (err) {
         setModalTitle('Account Update Failed');
@@ -142,7 +135,7 @@ export default function UpdateAccount() {
               onChange={handleChange}
               placeholder=''
               type='email'
-              disabled={true}
+              disabled
               bottomText='Email address cannot be changed'
               required
               minLength={9}

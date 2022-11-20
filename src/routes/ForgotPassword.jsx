@@ -34,13 +34,11 @@ export default function ForgotPassword() {
     if (record.email.trim().length < 9) {
       setModalTitle('Invalid Email');
       setModalBody('Email must be at least 9 characters long');
-      setShowModal(true);
       return false;
     }
     if (!record.email.includes('@') || !record.email.endsWith('.com')) {
       setModalTitle('Invalid Email');
       setModalBody('Email must contain @ and end with .com');
-      setShowModal(true);
       return false;
     }
     return true;
@@ -50,7 +48,6 @@ export default function ForgotPassword() {
     if (record.otp.length < 6) {
       setModalTitle('Invalid OTP');
       setModalBody('OTP must be at least 6 characters long');
-      setShowModal(true);
       return false;
     }
     return true;
@@ -60,13 +57,11 @@ export default function ForgotPassword() {
     if (record.password.length < 6) {
       setModalTitle('Invalid Password');
       setModalBody('Password must be at least 6 characters long');
-      setShowModal(true);
       return false;
     }
     if (record.password !== record.confirmPassword) {
       setModalTitle('Invalid Password');
       setModalBody('Password and Confirm Password must be same');
-      setShowModal(true);
       return false;
     }
     return true;
