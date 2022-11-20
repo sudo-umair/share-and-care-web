@@ -25,13 +25,13 @@ export default function RightPane({ activeResource, hospital, setRefresh }) {
         .put(`${GLOBALS.BASE_URL}/resources/approveRequest`, record)
         .then((response) => {
           if (response.data.status === '200') {
-            toast.success('Request Approved');
+            toast.success(response.data.message);
           } else {
-            toast.error('Error approving request');
+            toast.warning(response.data.message);
           }
         })
         .catch((error) => {
-          toast.error('Error approving request');
+          toast.warning('Error approving request');
         })
         .finally(() => {
           setIsLoading1(false);
@@ -55,11 +55,11 @@ export default function RightPane({ activeResource, hospital, setRefresh }) {
           if (response.data.status === '200') {
             toast.success(response.data.message);
           } else {
-            toast.error(response.data.message);
+            toast.warning(response.data.message);
           }
         })
         .catch((error) => {
-          toast.error('Error hiding request');
+          toast.warning('Error hiding request');
         })
         .finally(() => {
           setIsLoading2(false);
@@ -83,12 +83,12 @@ export default function RightPane({ activeResource, hospital, setRefresh }) {
           if (response.data.status === '200') {
             toast.success(response.data.message);
           } else {
-            toast.error(response.data.message);
+            toast.warning(response.data.message);
           }
         })
         .catch((error) => {
           console.log(error);
-          toast.error('Error deleting request');
+          toast.warning('Error deleting request');
         })
         .finally(() => {
           setIsLoading3(false);
