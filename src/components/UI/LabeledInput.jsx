@@ -30,6 +30,7 @@ export default function LabeledInput({
           fontSize: '0.9rem',
           margin: 0,
         }}
+        title={label.endsWith('*') ? 'This field is required' : label}
       >
         {label}
       </Form.Label>
@@ -46,6 +47,7 @@ export default function LabeledInput({
         disabled={disabled ?? false}
         maxLength={maxLength ?? 100}
         minLength={minLength ?? 0}
+        title={`Enter ${label.slice(0, -2)} here`}
       />
       {bottomText && <Form.Text className='text-muted'>{bottomText}</Form.Text>}
     </Form.Group>
