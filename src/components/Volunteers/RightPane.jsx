@@ -162,6 +162,7 @@ export default function RightPane({ activeVolunteer, setRefresh }) {
       <Applicants
         applicants={activeVolunteer.applicants}
         setRefresh={setRefresh}
+        volunteerRequestId={activeVolunteer._id}
       />
       <hr />
     </div>
