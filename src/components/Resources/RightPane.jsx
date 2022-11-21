@@ -3,11 +3,14 @@ import ButtonView from '../UI/ButtonView';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { GLOBALS } from '../../utils/constants';
+import ModalView from '../UI/ModalView';
 
 export default function RightPane({ activeResource, hospital, setRefresh }) {
   const [isLoading1, setIsLoading1] = useState(false);
   const [isLoading2, setIsLoading2] = useState(false);
   const [isLoading3, setIsLoading3] = useState(false);
+
+  const [showModal, setShowModal] = useState(false);
 
   const handleApproveRequest = async () => {
     if (activeResource.requestedByEmail === hospital.email) {
@@ -102,128 +105,148 @@ export default function RightPane({ activeResource, hospital, setRefresh }) {
   }
 
   return (
-    <div
-      style={{
-        width: '70%',
-        height: '80vh',
-        display: 'flex',
-        flexDirection: 'column',
-        padding: '0.8rem',
-      }}
-      id='right-pane'
-    >
+    <>
+      {' '}
       <div
         style={{
+          width: '70%',
+          height: '80vh',
           display: 'flex',
           flexDirection: 'column',
+          padding: '0.8rem',
         }}
+        id='right-pane'
       >
-        <h4>{activeResource.resourceName}</h4>
-        <p style={{ ...STYLES.text, marginBottom: '0.5rem' }}>
-          Request Status:
-          <span
-            style={{
-              color:
-                activeResource.requestStatus === 'Pending' ? 'black' : 'white',
-              backgroundColor:
-                activeResource.requestStatus === 'Pending' ? 'yellow' : 'green',
-              marginLeft: '0.5rem',
-              padding: '0.2rem 0.5rem',
-              borderRadius: '0.4rem',
-            }}
-          >
-            {activeResource.requestStatus}
-          </span>
-        </p>
-
-        <p
+        <div
           style={{
-            ...STYLES.text,
-            marginRight: '5rem',
+            display: 'flex',
+            flexDirection: 'column',
           }}
         >
-          Quantity: {activeResource.resourceQuantity}
-        </p>
-        <p style={STYLES.text}>Duration: {activeResource.resourceDuration}</p>
+          <h4>{activeResource.resourceName}</h4>
+          <p style={{ ...STYLES.text, marginBottom: '0.5rem' }}>
+            Request Status:
+            <span
+              style={{
+                color:
+                  activeResource.requestStatus === 'Pending'
+                    ? 'black'
+                    : 'white',
+                backgroundColor:
+                  activeResource.requestStatus === 'Pending'
+                    ? 'yellow'
+                    : 'green',
+                marginLeft: '0.5rem',
+                padding: '0.2rem 0.5rem',
+                borderRadius: '0.4rem',
+              }}
+            >
+              {activeResource.requestStatus}
+            </span>
+          </p>
 
-        <p style={STYLES.text}>
-          Additional Notes:{' '}
-          {activeResource.resourceNotes.trim() === ''
-            ? 'None'
-            : activeResource.resourceNotes}
-        </p>
-        <hr />
-      </div>
+          <p
+            style={{
+              ...STYLES.text,
+              marginRight: '5rem',
+            }}
+          >
+            Quantity: {activeResource.resourceQuantity}
+          </p>
+          <p style={STYLES.text}>Duration: {activeResource.resourceDuration}</p>
 
-      {activeResource.requestedByEmail !== hospital.email && (
-        <div style={{}}>
-          <h4>Requested By</h4>
-          <p style={STYLES.text}></p>
-          <p style={STYLES.text}>Name: {activeResource.requestedByName}</p>
-          <p style={STYLES.text}>Email: {activeResource.requestedByEmail}</p>
-          <p style={STYLES.text}>Phone: {activeResource.requestedByPhone}</p>
           <p style={STYLES.text}>
-            Address: {activeResource.requestedByAddress}
+            Additional Notes:{' '}
+            {activeResource.resourceNotes.trim() === ''
+              ? 'None'
+              : activeResource.resourceNotes}
           </p>
           <hr />
         </div>
-      )}
 
-      {activeResource.requestStatus === 'Approved' &&
-        activeResource.approvedByEmail !== hospital.email && (
+        {activeResource.requestedByEmail !== hospital.email && (
           <div style={{}}>
-            <h4>Approved By</h4>
-            <p style={STYLES.text}>Name: {activeResource.approvedByName}</p>
-            <p style={STYLES.text}>Email: {activeResource.approvedByEmail}</p>
-            <p style={STYLES.text}>Phone: {activeResource.approvedByPhone}</p>
+            <h4>Requested By</h4>
+            <p style={STYLES.text}></p>
+            <p style={STYLES.text}>Name: {activeResource.requestedByName}</p>
+            <p style={STYLES.text}>Email: {activeResource.requestedByEmail}</p>
+            <p style={STYLES.text}>Phone: {activeResource.requestedByPhone}</p>
+            <p style={STYLES.text}>
+              Address: {activeResource.requestedByAddress}
+            </p>
             <hr />
           </div>
         )}
 
-      <div
-        id='buttons-row'
-        style={{
-          display: 'flex',
-          justifyContent: 'space-around',
-          width: '60%',
-          alignSelf: 'center',
-        }}
-      >
-        {activeResource.requestStatus === 'Pending' &&
-          activeResource.requestedByEmail !== hospital.email && (
-            <>
-              <ButtonView
-                type='button'
-                variant='primary'
-                isLoading={isLoading1}
-                onClick={handleApproveRequest}
-              >
-                Approve Request
-              </ButtonView>
-              <ButtonView
-                type='button'
-                variant='secondary'
-                isLoading={isLoading2}
-                onClick={handleHideRequest}
-              >
-                Hide Request
-              </ButtonView>
-            </>
+        {activeResource.requestStatus === 'Approved' &&
+          activeResource.approvedByEmail !== hospital.email && (
+            <div style={{}}>
+              <h4>Approved By</h4>
+              <p style={STYLES.text}>Name: {activeResource.approvedByName}</p>
+              <p style={STYLES.text}>Email: {activeResource.approvedByEmail}</p>
+              <p style={STYLES.text}>Phone: {activeResource.approvedByPhone}</p>
+              <hr />
+            </div>
           )}
 
-        {activeResource.requestStatus === 'Pending' &&
-          activeResource.requestedByEmail === hospital.email && (
-            <ButtonView
-              type='button'
-              variant='danger'
-              isLoading={isLoading3}
-              onClick={handleDeleteRequest}
-            >
-              Delete Request
-            </ButtonView>
-          )}
+        <div
+          id='buttons-row'
+          style={{
+            display: 'flex',
+            justifyContent: 'space-around',
+            width: '60%',
+            alignSelf: 'center',
+          }}
+        >
+          {activeResource.requestStatus === 'Pending' &&
+            activeResource.requestedByEmail !== hospital.email && (
+              <>
+                <ButtonView
+                  type='button'
+                  variant='primary'
+                  isLoading={isLoading1}
+                  onClick={handleApproveRequest}
+                >
+                  Approve Request
+                </ButtonView>
+                <ButtonView
+                  type='button'
+                  variant='secondary'
+                  isLoading={isLoading2}
+                  onClick={handleHideRequest}
+                >
+                  Hide Request
+                </ButtonView>
+              </>
+            )}
+
+          {activeResource.requestStatus === 'Pending' &&
+            activeResource.requestedByEmail === hospital.email && (
+              <ButtonView
+                type='button'
+                variant='danger'
+                isLoading={isLoading3}
+                onClick={() => {
+                  setShowModal(true);
+                }}
+              >
+                Delete Request
+              </ButtonView>
+            )}
+        </div>
       </div>
-    </div>
+      <ModalView
+        showModal={showModal}
+        setShowModal={setShowModal}
+        modalTitle='Delete Resource Request'
+        modalBody='Are you sure you want to delete this resource request?'
+        action2Text={'Delete Request'}
+        action2Loading={isLoading3}
+        action2Color='danger'
+        action2Function={handleDeleteRequest}
+        isLoading={isLoading3}
+      />
+    </>
   );
 }
 
