@@ -13,7 +13,12 @@ export default function ModalView({
   isLoading,
 }) {
   return (
-    <Modal show={showModal} onHide={() => setShowModal(false)}>
+    <Modal
+      show={showModal}
+      backdrop='static'
+      keyboard={false}
+      onHide={() => setShowModal(false)}
+    >
       <Modal.Header closeButton>
         <Modal.Title>{modalTitle}</Modal.Title>
       </Modal.Header>
