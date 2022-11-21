@@ -156,7 +156,13 @@ function NavBar() {
                   menuVariant='dark'
                   id='basic-nav-dropdown'
                 >
-                  {/* <NavDropdown.Divider /> */}
+                  <NavDropdown.Item as={Link} to='/resources'>
+                    Resources
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to='/volunteers'>
+                    Volunteers
+                  </NavDropdown.Item>
+                  <NavDropdown.Divider />
                   <NavDropdown.Item as={Link} to='/update-account'>
                     Update Account
                   </NavDropdown.Item>
