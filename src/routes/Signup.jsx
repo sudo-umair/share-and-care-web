@@ -169,6 +169,7 @@ export default function Signup() {
               onChange={(e) => handleChange(e)}
               required
               minLength={10}
+              maxLength={11}
             />
             <LabeledInput
               className='mb-3'

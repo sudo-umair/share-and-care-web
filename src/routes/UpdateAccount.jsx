@@ -152,6 +152,7 @@ export default function UpdateAccount() {
               type='text'
               required
               minLength={10}
+              maxLength={11}
             />
 
             <LabeledInput
