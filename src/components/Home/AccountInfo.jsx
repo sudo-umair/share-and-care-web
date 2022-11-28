@@ -24,15 +24,15 @@ export default function AccountInfo({ name, email, phone, address }) {
       >
         <tbody>
           <tr>
-            <td>Hospital Name</td>
+            <td>Hospital</td>
             <td>{name}</td>
           </tr>
           <tr>
-            <td>Email Address</td>
+            <td>Email</td>
             <td>{email}</td>
           </tr>
           <tr>
-            <td>Phone Number</td>
+            <td>Phone</td>
             <td>{phone}</td>
           </tr>
           <tr>
