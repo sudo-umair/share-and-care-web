@@ -94,7 +94,7 @@ export default function UpdateAccount() {
         if (response.data.status === '200') {
           toast.success('Account Updated');
           dispatch(setHospital(response.data?.hospital));
-          navigate('/home');
+          navigate('/');
         } else {
           toast.warning(response.data.message);
         }

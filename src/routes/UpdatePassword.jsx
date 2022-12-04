@@ -73,7 +73,7 @@ export default function UpdatePassword() {
         setIsLoading(false);
         if (response.data.status === '200') {
           toast.success('Password Updated');
-          navigate('/home');
+          navigate('/');
         } else {
           toast.error(response.data.message);
         }
