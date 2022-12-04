@@ -83,7 +83,7 @@ export default function Signup() {
         setIsLoading(false);
         if (response.data.status === '201') {
           toast.success('Signup Successful');
-          navigate('/');
+          navigate('/sign-in');
         } else {
           toast.error(response.data.message);
         }

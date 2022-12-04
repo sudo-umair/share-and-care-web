@@ -78,7 +78,7 @@ function NavBar() {
               className='d-inline-block align-top'
             />
             <NavLink
-              to={isLoggedIn ? '/home' : '/'}
+              to='/'
               style={{
                 color: 'white',
                 textDecoration: 'none',
@@ -91,13 +91,13 @@ function NavBar() {
           <Navbar.Brand>
             {!isLoggedIn ? (
               <NavLink
-                to={location.pathname === '/' ? '/sign-up' : '/'}
+                to={location.pathname === '/sign-in' ? '/sign-up' : '/sign-in'}
                 style={{
                   color: 'white',
                   fontSize: '1rem',
                 }}
               >
-                {location.pathname === '/' ? 'Sign Up' : 'Sign In'}
+                {location.pathname === '/sign-in' ? 'Sign Up' : 'Sign In'}
               </NavLink>
             ) : (
               <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -125,7 +125,7 @@ function NavBar() {
                     Request Volunteers
                   </NavLink>
                 )}
-                {location.pathname === '/home' && (
+                {location.pathname === '/' && (
                   <NavLink
                     to='/resources'
                     style={{
@@ -137,7 +137,7 @@ function NavBar() {
                     Resources
                   </NavLink>
                 )}
-                {location.pathname === '/home' && (
+                {location.pathname === '/' && (
                   <NavLink
                     to='/volunteers'
                     style={{
@@ -156,13 +156,17 @@ function NavBar() {
                   menuVariant='dark'
                   id='basic-nav-dropdown'
                 >
-                  <NavDropdown.Item as={Link} to='/resources'>
-                    Resources
-                  </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to='/volunteers'>
-                    Volunteers
-                  </NavDropdown.Item>
-                  <NavDropdown.Divider />
+                  {location.pathname !== '/' && (
+                    <>
+                      <NavDropdown.Item as={Link} to='/resources'>
+                        Resources
+                      </NavDropdown.Item>
+                      <NavDropdown.Item as={Link} to='/volunteers'>
+                        Volunteers
+                      </NavDropdown.Item>
+                      <NavDropdown.Divider />
+                    </>
+                  )}
                   <NavDropdown.Item as={Link} to='/update-account'>
                     Update Account
                   </NavDropdown.Item>

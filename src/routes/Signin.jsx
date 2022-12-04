@@ -62,7 +62,7 @@ export default function Signin() {
         setIsLoading(false);
         if (response.data.status === '200') {
           dispatch(setHospital(response.data?.hospital));
-          navigate('/home');
+          navigate('/');
           toast.success(`Signed in as ${record.email}`);
         } else {
           toast.warning(response.data.message);
