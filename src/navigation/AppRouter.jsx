@@ -21,12 +21,13 @@ import Resources from '../routes/Resources';
 import ResourceRequest from '../routes/ResourceRequest';
 import Volunteers from '../routes/Volunteers';
 import VolunteerRequest from '../routes/VolunteerRequest';
+import Error404 from '../routes/Error404';
 
 function ProtectedRoutes() {
   const { isLoggedIn } = useSelector((state) => state.hospital);
 
   if (!isLoggedIn) {
-    return <Navigate to='/' replace />;
+    return <Navigate to='/sign-in' replace />;
   }
 
   return <Outlet />;
@@ -39,13 +40,13 @@ export default function AppRouter() {
         <NavBar />
       </AvatarProvider>
       <Routes>
-        <Route path='/' element={<Signin />} />
+        <Route path='/sign-in' element={<Signin />} />
         <Route path='/sign-up' element={<Signup />} />
         <Route path='/forgot-password' element={<ForgotPassword />} />
 
         {/* Protected Routes */}
         <Route element={<ProtectedRoutes />}>
-          <Route path='/home' element={<Home />} />
+          <Route path='/' element={<Home />} />
           <Route path='/update-account' element={<UpdateAccount />} />
           <Route path='/update-password' element={<UpdatePassword />} />
           <Route path='/resources' element={<Resources />} />
@@ -53,7 +54,7 @@ export default function AppRouter() {
           <Route path='/volunteers' element={<Volunteers />} />
           <Route path='/volunteer-request' element={<VolunteerRequest />} />
         </Route>
-        <Route path='*' element={<h1>404</h1>} />
+        <Route path='*' element={<Error404 />} />
       </Routes>
     </Router>
   );
