@@ -12,7 +12,7 @@ export default function RequestsCount({ hospitalRecord, isLoading }) {
           color: 'white',
         }}
       >
-        Your Requests Stats
+        Stats
       </Card.Header>
       {isLoading ? (
         <div

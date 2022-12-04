@@ -13,7 +13,7 @@ export default function AccountInfo({ name, email, phone, address }) {
           color: 'white',
         }}
       >
-        Logged in as:
+        Logged in as
       </Card.Header>
       <Table
         style={{

@@ -106,7 +106,6 @@ export default function RightPane({ activeResource, hospital, setRefresh }) {
 
   return (
     <>
-      {' '}
       <div
         style={{
           width: '70%',
