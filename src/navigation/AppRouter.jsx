@@ -25,11 +25,9 @@ import Error404 from '../routes/Error404';
 
 function ProtectedRoutes() {
   const { isLoggedIn } = useSelector((state) => state.hospital);
-
   if (!isLoggedIn) {
     return <Navigate to='/sign-in' replace />;
   }
-
   return <Outlet />;
 }
 
