@@ -1,3 +1,5 @@
 {
-  "cSpell.words": ["Signin", "signout"]
+  "cSpell.words": ["Signin", "signout"],
+  "editor.fontSize": 15,
+  "editor.fontFamily": "'Droid Sans Mono', 'monospace', monospace"
 }

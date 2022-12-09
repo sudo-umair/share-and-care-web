@@ -30,7 +30,11 @@ export default function LabeledInput({
           fontSize: '0.9rem',
           margin: 0,
         }}
-        title={label.endsWith('*') ? 'This field is required' : label}
+        title={
+          label.endsWith('*')
+            ? 'This field is required'
+            : 'This field is optional'
+        }
       >
         {label}
       </Form.Label>

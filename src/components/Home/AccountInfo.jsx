@@ -3,7 +3,7 @@ import { Card, Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { GLOBALSTYLES as GS } from '../../utils/styles';
 
-export default function AccountInfo({ name, email, phone, address }) {
+export default function AccountInfo({ name, email, phone, address, website }) {
   return (
     <Card style={{ width: '35%', height: 'fit-content' }}>
       <Card.Header
@@ -13,7 +13,7 @@ export default function AccountInfo({ name, email, phone, address }) {
           color: 'white',
         }}
       >
-        Logged in as
+        {name}
       </Card.Header>
       <Table
         style={{
@@ -24,16 +24,16 @@ export default function AccountInfo({ name, email, phone, address }) {
       >
         <tbody>
           <tr>
-            <td>Hospital</td>
-            <td>{name}</td>
-          </tr>
-          <tr>
             <td>Email</td>
             <td>{email}</td>
           </tr>
           <tr>
             <td>Phone</td>
             <td>{phone}</td>
+          </tr>
+          <tr>
+            <td>Website</td>
+            <td>{website || 'Not Provided'}</td>
           </tr>
           <tr>
             <td>Address</td>
@@ -51,7 +51,7 @@ export default function AccountInfo({ name, email, phone, address }) {
         <Link
           style={{
             color: 'white',
-            fontSize: '0.8rem',
+            fontSize: '0.9rem',
           }}
           to='/update-account'
         >

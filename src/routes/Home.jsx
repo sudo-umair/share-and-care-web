@@ -11,7 +11,7 @@ export default function Home() {
   const [hospitalRecord, setHospitalRecord] = useState({});
   const [loading, setLoading] = useState(true);
 
-  const { name, email, phone, address } = useSelector(
+  const { name, email, phone, address, website } = useSelector(
     (state) => state.hospital
   );
 
@@ -51,6 +51,7 @@ export default function Home() {
           name={name}
           email={email}
           phone={phone}
+          website={website}
           address={address}
         />
       </div>

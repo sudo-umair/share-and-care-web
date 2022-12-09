@@ -15,7 +15,7 @@ export default function UpdateAccount() {
   const dispatch = useDispatch();
 
   const hospital = useSelector((state) => state.hospital);
-  const { name, email, phone, address, token } = hospital;
+  const { name, email, phone, address, website, token } = hospital;
 
   const [showModal, setShowModal] = useState(false);
   const [modalTitle, setModalTitle] = useState('');
@@ -28,6 +28,7 @@ export default function UpdateAccount() {
     email,
     phone,
     address,
+    website,
     token,
   });
 
@@ -59,6 +60,29 @@ export default function UpdateAccount() {
       setModalBody('Address must be at least 10 characters long');
       return false;
     }
+
+    if (record.website !== '') {
+      if (record.website.trim().length < 7) {
+        setModalTitle('Invalid Website');
+        setModalBody('Website must be at least 7 characters long');
+        return false;
+      }
+
+      if (!record.website.startsWith('www.')) {
+        setModalTitle('Invalid Website');
+        setModalBody('Website must start with www');
+        return false;
+      }
+
+      if (
+        !(record.website.endsWith('.com') || record.website.endsWith('.org'))
+      ) {
+        setModalTitle('Invalid Website');
+        setModalBody('Website must end with .com or .org');
+        return false;
+      }
+    }
+
     return true;
   };
 
@@ -67,6 +91,7 @@ export default function UpdateAccount() {
       record.name.trim() === originalRecord.name.trim() &&
       record.email.trim() === originalRecord.email.trim() &&
       record.phone.trim() === originalRecord.phone.trim() &&
+      record.website.trim() === originalRecord.website.trim() &&
       record.address.trim() === originalRecord.address.trim()
     ) {
       setModalTitle('No Changes Made');
@@ -154,7 +179,17 @@ export default function UpdateAccount() {
               minLength={10}
               maxLength={11}
             />
-
+            <LabeledInput
+              className='mb-3'
+              controlId='website'
+              label='Website'
+              type='text'
+              placeholder='www.example.com (optional)'
+              name='website'
+              value={record.website}
+              onChange={(e) => handleChange(e)}
+              minLength={7}
+            />
             <LabeledInput
               label='Address *'
               controlId='address'

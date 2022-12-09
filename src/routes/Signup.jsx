@@ -23,6 +23,7 @@ export default function Signup() {
     password: '',
     confirmPassword: '',
     phone: '',
+    website: '',
     address: '',
   });
 
@@ -61,6 +62,27 @@ export default function Signup() {
       setModalTitle('Invalid Address');
       setModalBody('Address must be at least 10 characters long');
       return false;
+    }
+    if (record.website !== '') {
+      if (record.website.trim().length < 7) {
+        setModalTitle('Invalid Website');
+        setModalBody('Website must be at least 7 characters long');
+        return false;
+      }
+
+      if (!record.website.startsWith('www.')) {
+        setModalTitle('Invalid Website');
+        setModalBody('Website must start with www');
+        return false;
+      }
+
+      if (
+        !(record.website.endsWith('.com') || record.website.endsWith('.org'))
+      ) {
+        setModalTitle('Invalid Website');
+        setModalBody('Website must end with .com or .org');
+        return false;
+      }
     }
     return true;
   };
@@ -122,6 +144,7 @@ export default function Signup() {
               onChange={handleChange}
               required
               minLength={9}
+              placeholder='abc@xyz.com'
               bottomText={'We will never share your email with anyone else.'}
             />
             <LabeledInput
@@ -132,7 +155,6 @@ export default function Signup() {
               name='password'
               value={record.password}
               onChange={(e) => handleChange(e)}
-              placeholder=''
               required
               minLength={6}
             />
@@ -144,7 +166,6 @@ export default function Signup() {
               name='confirmPassword'
               value={record.confirmPassword}
               onChange={(e) => handleChange(e)}
-              placeholder=''
               required
               minLength={6}
             />
@@ -163,13 +184,23 @@ export default function Signup() {
               controlId='phone'
               label='Phone Number *'
               type='tel'
-              placeholder=''
               name='phone'
               value={record.phone}
               onChange={(e) => handleChange(e)}
               required
               minLength={10}
               maxLength={11}
+            />
+            <LabeledInput
+              className='mb-3'
+              controlId='website'
+              label='Website'
+              type='text'
+              placeholder='www.example.com (optional)'
+              name='website'
+              value={record.website}
+              onChange={(e) => handleChange(e)}
+              minLength={7}
             />
             <LabeledInput
               className='mb-3'
