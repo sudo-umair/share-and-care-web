@@ -5,6 +5,7 @@ import axios from 'axios';
 import { GLOBALS } from '../../utils/constants';
 import Applicants from './Applicants';
 import ModalView from '../UI/ModalView';
+import { Table } from 'react-bootstrap';
 
 export default function RightPane({ activeVolunteer, setRefresh }) {
   const [isLoading1, setIsLoading1] = useState(false);
@@ -75,90 +76,91 @@ export default function RightPane({ activeVolunteer, setRefresh }) {
         }}
         id='right-pane'
       >
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-          }}
-        >
-          <h4>{activeVolunteer.volunteerRequestTitle}</h4>
-          <p style={{ ...STYLES.text, marginBottom: '0.5rem' }}>
-            Request Status:
-            <span
-              style={{
-                color:
-                  activeVolunteer.requestStatus === 'Enabled'
-                    ? 'white'
-                    : 'black',
-                backgroundColor:
-                  activeVolunteer.requestStatus === 'Enabled'
-                    ? 'green'
-                    : 'yellow',
-                marginLeft: '0.5rem',
-                padding: '0.2rem 0.5rem',
-                borderRadius: '0.4rem',
-              }}
-            >
-              {activeVolunteer.requestStatus}
-            </span>
-          </p>
-
-          <p
-            style={{
-              ...STYLES.text,
-              marginRight: '5rem',
-            }}
-          >
-            Volunteers Required: {activeVolunteer.volunteersRequired}
-          </p>
-          <p style={STYLES.text}>
-            Applicants: {activeVolunteer.applicants.length}
-          </p>
-          <p style={STYLES.text}>Duration: {activeVolunteer.timeDuration}</p>
-
-          <p style={STYLES.text}>
-            Description: {activeVolunteer.volunteerRequestDescription}
-          </p>
-          <hr />
-        </div>
-
-        <div
-          id='buttons-row'
-          style={{
-            display: 'flex',
-            justifyContent: 'space-around',
-            width: '60%',
-            alignSelf: 'center',
-          }}
-        >
-          <ButtonView
-            type='button'
-            variant={
-              activeVolunteer.requestStatus === 'Enabled'
-                ? 'warning'
-                : 'success'
-            }
-            isLoading={isLoading1}
-            onClick={
-              activeVolunteer.requestStatus === 'Enabled'
-                ? () => handleUpdateRequest('Disabled')
-                : () => handleUpdateRequest('Enabled')
-            }
-          >
-            {activeVolunteer.requestStatus === 'Enabled'
-              ? 'Disable Request'
-              : 'Enable Request'}
-          </ButtonView>
-          <ButtonView
-            type='button'
-            variant='danger'
-            isLoading={isLoading2}
-            onClick={() => setShowModal(true)}
-          >
-            Delete Request
-          </ButtonView>
-        </div>
-        <hr />
+        <Table responsive striped hover>
+          <thead>
+            <tr>
+              <th colSpan={2}>{activeVolunteer.volunteerRequestTitle}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td
+                style={{
+                  width: '30%',
+                }}
+              >
+                Request Status
+              </td>
+              <td>
+                <span
+                  style={{
+                    color:
+                      activeVolunteer.requestStatus === 'Enabled'
+                        ? 'white'
+                        : 'black',
+                    backgroundColor:
+                      activeVolunteer.requestStatus === 'Enabled'
+                        ? 'green'
+                        : 'yellow',
+                    padding: '0.2rem 0.5rem',
+                    borderRadius: '0.4rem',
+                  }}
+                >
+                  {activeVolunteer.requestStatus}
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td>Volunteers Required</td>
+              <td>{activeVolunteer.volunteersRequired}</td>
+            </tr>
+            <tr>
+              <td>Applicants</td>
+              <td>{activeVolunteer.applicants.length}</td>
+            </tr>
+            <tr>
+              <td>Duration</td>
+              <td>{activeVolunteer.timeDuration}</td>
+            </tr>
+            <tr>
+              <td>Description</td>
+              <td>{activeVolunteer.volunteerRequestDescription}</td>
+            </tr>
+            <tr>
+              <td colSpan={2}>
+                <ButtonView
+                  type='button'
+                  variant={
+                    activeVolunteer.requestStatus === 'Enabled'
+                      ? 'warning'
+                      : 'success'
+                  }
+                  isLoading={isLoading1}
+                  onClick={
+                    activeVolunteer.requestStatus === 'Enabled'
+                      ? () => handleUpdateRequest('Disabled')
+                      : () => handleUpdateRequest('Enabled')
+                  }
+                  style={{
+                    marginRight: '1rem',
+                  }}
+                >
+                  {activeVolunteer.requestStatus === 'Enabled'
+                    ? 'Disable Request'
+                    : 'Enable Request'}
+                </ButtonView>
+                <ButtonView
+                  type='button'
+                  variant='danger'
+                  isLoading={isLoading2}
+                  onClick={() => setShowModal(true)}
+                >
+                  Delete Request
+                </ButtonView>
+              </td>
+            </tr>
+          </tbody>
+        </Table>
         <h4
           style={{
             textAlign: 'center',
@@ -173,24 +175,17 @@ export default function RightPane({ activeVolunteer, setRefresh }) {
           volunteerRequestId={activeVolunteer._id}
         />
         <hr />
+        <ModalView
+          showModal={showModal}
+          setShowModal={setShowModal}
+          modalTitle='Delete Volunteer Request'
+          modalBody='Are you sure you want to delete this volunteer request?'
+          action2Text='Delete Request'
+          action2Color='danger'
+          action2Function={handleDeleteRequest}
+          isLoading={isLoading2}
+        />
       </div>
-      <ModalView
-        showModal={showModal}
-        setShowModal={setShowModal}
-        modalTitle='Delete Volunteer Request'
-        modalBody='Are you sure you want to delete this volunteer request?'
-        action2Text='Delete Request'
-        action2Color='danger'
-        action2Function={handleDeleteRequest}
-        isLoading={isLoading2}
-      />
     </>
   );
 }
-
-const STYLES = {
-  text: {
-    padding: '0rem',
-    margin: '0rem',
-  },
-};
