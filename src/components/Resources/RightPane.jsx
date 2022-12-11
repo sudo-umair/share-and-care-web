@@ -117,7 +117,7 @@ export default function RightPane({ activeResource, hospital, setRefresh }) {
         }}
         id='right-pane'
       >
-        <Table responsive striped hover>
+        <Table striped hover>
           <thead>
             <tr>
               <th rowSpan={2}>{activeResource.resourceName}</th>

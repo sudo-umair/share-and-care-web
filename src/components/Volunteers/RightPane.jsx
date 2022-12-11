@@ -76,7 +76,7 @@ export default function RightPane({ activeVolunteer, setRefresh }) {
         }}
         id='right-pane'
       >
-        <Table responsive striped hover>
+        <Table striped hover>
           <thead>
             <tr>
               <th colSpan={2}>{activeVolunteer.volunteerRequestTitle}</th>
