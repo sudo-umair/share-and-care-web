@@ -94,7 +94,7 @@ export default function VolunteerRequest() {
         originalRecord.volunteerRequestDescription
     ) {
       setModalTitle('No Changes');
-      setModalBody('No changes were made to the resource request');
+      setModalBody('No changes were made to the volunteer request');
       return false;
     }
     return true;
