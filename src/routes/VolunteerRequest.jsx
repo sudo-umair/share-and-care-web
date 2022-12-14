@@ -34,6 +34,8 @@ export default function VolunteerRequest() {
     volunteerRequestDescription: '',
   });
 
+  const [originalRecord, setOriginalRecord] = useState({});
+
   useEffect(() => {
     if (id) {
       const fetchResource = async () => {
@@ -43,6 +45,7 @@ export default function VolunteerRequest() {
           );
           if (response.data.status === '200') {
             setRecord(response.data.result);
+            setOriginalRecord(response.data.result);
             console.log(response.data.result);
           } else {
             toast.error(response.data.message);
@@ -82,6 +85,21 @@ export default function VolunteerRequest() {
     return true;
   };
 
+  const checkIfChanged = () => {
+    if (
+      record.volunteerRequestTitle === originalRecord.volunteerRequestTitle &&
+      record.timeDuration === originalRecord.timeDuration &&
+      record.volunteersRequired === originalRecord.volunteersRequired &&
+      record.volunteerRequestDescription ===
+        originalRecord.volunteerRequestDescription
+    ) {
+      setModalTitle('No Changes');
+      setModalBody('No changes were made to the resource request');
+      return false;
+    }
+    return true;
+  };
+
   const handleChange = (e) => {
     setRecord({ ...record, [e.target.name]: e.target.value });
   };
@@ -112,7 +130,7 @@ export default function VolunteerRequest() {
 
   const handleUpdate = async (e) => {
     e.preventDefault();
-    if (checkInputs()) {
+    if (checkInputs() && checkIfChanged()) {
       try {
         setIsLoading(true);
         const response = await axios.post(

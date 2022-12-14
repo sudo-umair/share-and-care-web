@@ -277,7 +277,7 @@ export default function RightPane({ activeResource, hospital, setRefresh }) {
             {activeResource.requestStatus === 'Pending' &&
               activeResource.requestedByEmail === hospital.email && (
                 <tr>
-                  <td colSpan={2} style={{}}>
+                  <td colSpan={2} align='center'>
                     <ButtonView
                       type='button'
                       variant='primary'

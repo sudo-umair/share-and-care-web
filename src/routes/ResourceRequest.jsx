@@ -22,6 +22,8 @@ export default function ResourceRequest() {
 
   const [isLoading, setIsLoading] = useState(false);
 
+  const [originalRecord, setOriginalRecord] = useState({});
+
   const [record, setRecord] = useState({
     userType: 'hospital',
     resourceName: '',
@@ -43,6 +45,7 @@ export default function ResourceRequest() {
           );
           if (response.data.status === '200') {
             setRecord(response.data.result);
+            setOriginalRecord(response.data.result);
             console.log(response.data.result);
           } else {
             toast.error(response.data.message);
@@ -69,6 +72,20 @@ export default function ResourceRequest() {
     if (record.resourceDuration.trim().length < 1) {
       setModalTitle('Invalid Resource Duration');
       setModalBody('Resource Duration must be at least 1 characters long');
+      return false;
+    }
+    return true;
+  };
+
+  const checkIfChanged = () => {
+    if (
+      record.resourceName === originalRecord.resourceName &&
+      record.resourceQuantity === originalRecord.resourceQuantity &&
+      record.resourceDuration === originalRecord.resourceDuration &&
+      record.resourceNotes === originalRecord.resourceNotes
+    ) {
+      setModalTitle('No Changes');
+      setModalBody('No changes were made to the resource request');
       return false;
     }
     return true;
@@ -104,7 +121,7 @@ export default function ResourceRequest() {
 
   const handleUpdate = async (e) => {
     e.preventDefault();
-    if (checkInputs()) {
+    if (checkInputs() && checkIfChanged()) {
       try {
         setIsLoading(true);
         const response = await axios.post(
