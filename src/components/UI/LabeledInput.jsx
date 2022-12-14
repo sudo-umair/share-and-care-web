@@ -49,7 +49,7 @@ export default function LabeledInput({
         placeholder={placeholder ?? ''}
         required={required ?? false}
         disabled={disabled ?? false}
-        maxLength={maxLength ?? 100}
+        maxLength={maxLength ?? as === 'textarea' ? 255 : 100}
         minLength={minLength ?? 0}
         title={
           disabled
