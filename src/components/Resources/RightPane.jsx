@@ -11,12 +11,21 @@ export default function RightPane({ activeResource, hospital, setRefresh }) {
   const [isLoading2, setIsLoading2] = useState(false);
   const [isLoading3, setIsLoading3] = useState(false);
 
+  const [action2Text, setAction2Text] = useState('');
+  const [action2Function, setAction2Function] = useState(null);
+  const [action2Color, setAction2Color] = useState('');
+  const [action2Loading, setAction2Loading] = useState(false);
+
   const [showModal, setShowModal] = useState(false);
+  const [modalTitle, setModalTitle] = useState('');
+  const [modalBody, setModalBody] = useState('');
 
   const handleApproveRequest = async () => {
     if (activeResource.requestedByEmail === hospital.email) {
       toast.error('You cannot approve your own request');
     } else {
+      setIsLoading1(true);
+      setAction2Loading(true);
       const record = {
         id: activeResource._id,
         requestStatus: 'Approved',
@@ -24,7 +33,6 @@ export default function RightPane({ activeResource, hospital, setRefresh }) {
         approvedByEmail: hospital.email,
         approvedByPhone: hospital.phone,
       };
-      setIsLoading1(true);
       await axios
         .put(`${GLOBALS.BASE_URL}/resources/approveRequest`, record)
         .then((response) => {
@@ -39,6 +47,7 @@ export default function RightPane({ activeResource, hospital, setRefresh }) {
         })
         .finally(() => {
           setIsLoading1(false);
+          setAction2Loading(false);
           setRefresh((prev) => !prev);
         });
     }
@@ -48,11 +57,12 @@ export default function RightPane({ activeResource, hospital, setRefresh }) {
     if (activeResource.requestedByEmail === hospital.email) {
       toast.error('You cannot hide your own request');
     } else {
+      setIsLoading2(true);
+      setAction2Loading(true);
       const record = {
         id: activeResource._id,
         email: hospital.email,
       };
-      setIsLoading2(true);
       await axios
         .put(`${GLOBALS.BASE_URL}/resources/hideRequest`, record)
         .then((response) => {
@@ -67,6 +77,7 @@ export default function RightPane({ activeResource, hospital, setRefresh }) {
         })
         .finally(() => {
           setIsLoading2(false);
+          setAction2Loading(false);
           setRefresh((prev) => !prev);
         });
     }
@@ -76,11 +87,12 @@ export default function RightPane({ activeResource, hospital, setRefresh }) {
     if (activeResource.requestedByEmail !== hospital.email) {
       toast.error("You cannot delete someone else's request");
     } else {
+      setIsLoading3(true);
+      setAction2Loading(true);
       const record = {
         id: activeResource._id,
         email: hospital.email,
       };
-      setIsLoading3(true);
       await axios
         .post(`${GLOBALS.BASE_URL}/resources/deleteRequest`, record)
         .then((response) => {
@@ -96,6 +108,7 @@ export default function RightPane({ activeResource, hospital, setRefresh }) {
         })
         .finally(() => {
           setIsLoading3(false);
+          setAction2Loading(false);
           setRefresh((prev) => !prev);
         });
     }
@@ -110,10 +123,12 @@ export default function RightPane({ activeResource, hospital, setRefresh }) {
       <div
         style={{
           width: '70%',
-          height: '80vh',
           display: 'flex',
           flexDirection: 'column',
-          padding: '0.8rem',
+          padding: '0.5rem',
+          overflowY: 'scroll',
+          minHeight: '78vh',
+          maxHeight: '78vh',
         }}
         id='right-pane'
       >
@@ -221,7 +236,16 @@ export default function RightPane({ activeResource, hospital, setRefresh }) {
                         type='button'
                         variant='primary'
                         isLoading={isLoading1}
-                        onClick={handleApproveRequest}
+                        onClick={() => {
+                          setModalTitle('Approve Request');
+                          setModalBody(
+                            'I assure the resources are available and are of good quality!'
+                          );
+                          setAction2Color('success');
+                          setAction2Text('Approve Request');
+                          setAction2Function(() => handleApproveRequest);
+                          setShowModal(true);
+                        }}
                       >
                         Approve Request
                       </ButtonView>
@@ -229,7 +253,16 @@ export default function RightPane({ activeResource, hospital, setRefresh }) {
                         type='button'
                         variant='secondary'
                         isLoading={isLoading2}
-                        onClick={handleHideRequest}
+                        onClick={() => {
+                          setModalTitle('Hide Request');
+                          setModalBody(
+                            'Are you sure you want to hide this request?'
+                          );
+                          setAction2Color('success');
+                          setAction2Text('Hide Request');
+                          setAction2Function(() => handleHideRequest);
+                          setShowModal(true);
+                        }}
                         style={{ marginLeft: '1rem' }}
                       >
                         Hide Request
@@ -247,6 +280,13 @@ export default function RightPane({ activeResource, hospital, setRefresh }) {
                       variant='danger'
                       isLoading={isLoading3}
                       onClick={() => {
+                        setModalTitle('Delete Request');
+                        setModalBody(
+                          'Are you sure you want to delete this request?'
+                        );
+                        setAction2Color('danger');
+                        setAction2Text('Delete Request');
+                        setAction2Function(() => handleDeleteRequest);
                         setShowModal(true);
                       }}
                     >
@@ -261,13 +301,13 @@ export default function RightPane({ activeResource, hospital, setRefresh }) {
       <ModalView
         showModal={showModal}
         setShowModal={setShowModal}
-        modalTitle='Delete Resource Request'
-        modalBody='Are you sure you want to delete this resource request?'
-        action2Text={'Delete Request'}
-        action2Loading={isLoading3}
-        action2Color='danger'
-        action2Function={handleDeleteRequest}
-        isLoading={isLoading3}
+        modalTitle={modalTitle}
+        modalBody={modalBody}
+        action2Text={action2Text}
+        action2Loading={action2Loading}
+        action2Color={action2Color}
+        action2Function={action2Function}
+        isLoading={action2Loading}
       />
     </>
   );

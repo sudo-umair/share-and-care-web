@@ -134,6 +134,7 @@ export default function ResourceRequest() {
               value={record.resourceNotes}
               onChange={(e) => handleChange(e)}
               placeholder=''
+              maxLength={200}
             />
             <div
               style={{

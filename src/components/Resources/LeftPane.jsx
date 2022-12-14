@@ -13,8 +13,9 @@ export default function LeftPane({
     <div
       style={{
         width: '30%',
-        height: '80vh',
         overflowY: 'scroll',
+        minHeight: '78vh',
+        maxHeight: '78vh',
       }}
       id='left-pane'
     >

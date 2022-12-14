@@ -7,10 +7,10 @@ export default function ModalView({
   setShowModal,
   modalTitle,
   modalBody,
-  action2Function,
   action2Text,
   action2Color,
-  isLoading,
+  action2Loading,
+  action2Function,
 }) {
   return (
     <Modal
@@ -27,7 +27,7 @@ export default function ModalView({
         {action2Text && (
           <ButtonView
             variant={action2Color}
-            isLoading={isLoading}
+            isLoading={action2Loading}
             onClick={() => {
               action2Function();
               setShowModal(false);

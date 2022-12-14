@@ -113,6 +113,8 @@ export default function Resources() {
             width: '100%',
             display: 'flex',
             flexDirection: 'row',
+            minHeight: '78vh',
+            maxHeight: '78vh',
           }}
           id='content'
         >
