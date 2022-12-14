@@ -5,6 +5,7 @@ import axios from 'axios';
 import { GLOBALS } from '../../utils/constants';
 import ModalView from '../UI/ModalView';
 import { Table } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 export default function RightPane({ activeResource, hospital, setRefresh }) {
   const [isLoading1, setIsLoading1] = useState(false);
@@ -19,6 +20,8 @@ export default function RightPane({ activeResource, hospital, setRefresh }) {
   const [showModal, setShowModal] = useState(false);
   const [modalTitle, setModalTitle] = useState('');
   const [modalBody, setModalBody] = useState('');
+
+  const navigate = useNavigate();
 
   const handleApproveRequest = async () => {
     if (activeResource.requestedByEmail === hospital.email) {
@@ -277,8 +280,18 @@ export default function RightPane({ activeResource, hospital, setRefresh }) {
                   <td colSpan={2} style={{}}>
                     <ButtonView
                       type='button'
+                      variant='primary'
+                      onClick={() => {
+                        navigate(`/resource-request/${activeResource._id}`);
+                      }}
+                    >
+                      Update Request
+                    </ButtonView>
+                    <ButtonView
+                      type='button'
                       variant='danger'
                       isLoading={isLoading3}
+                      style={{ marginLeft: '1rem' }}
                       onClick={() => {
                         setModalTitle('Delete Request');
                         setModalBody(

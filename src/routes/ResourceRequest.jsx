@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Form } from 'react-bootstrap';
 import axios from 'axios';
 import { GLOBALS } from '../utils/constants';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import ModalView from '../components/UI/ModalView';
 import LabeledInput from '../components/UI/LabeledInput';
 import { toast } from 'react-toastify';
@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux';
 
 export default function ResourceRequest() {
   const navigate = useNavigate();
+  const { id } = useParams();
   const { email, name, phone, address } = useSelector(
     (state) => state.hospital
   );
@@ -32,6 +33,27 @@ export default function ResourceRequest() {
     requestedByPhone: phone,
     requestedByAddress: address,
   });
+
+  useEffect(() => {
+    if (id) {
+      const fetchResource = async () => {
+        try {
+          const response = await axios.post(
+            `${GLOBALS.BASE_URL}/resources/fetchOneRequest/${id}`
+          );
+          if (response.data.status === '200') {
+            setRecord(response.data.result);
+            console.log(response.data.result);
+          } else {
+            toast.error(response.data.message);
+          }
+        } catch (err) {
+          toast.error(err.message);
+        }
+      };
+      fetchResource();
+    }
+  }, [id]);
 
   const checkInputs = () => {
     if (record.resourceName.trim().length < 3) {
@@ -67,7 +89,7 @@ export default function ResourceRequest() {
         );
         setIsLoading(false);
         if (response.data.status === '201') {
-          toast.success('Request Posted Successfully');
+          toast.success(response.data.message);
           navigate('/resources');
         } else {
           toast.error(response.data.message);
@@ -80,12 +102,42 @@ export default function ResourceRequest() {
     }
   };
 
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    if (checkInputs()) {
+      try {
+        setIsLoading(true);
+        const response = await axios.post(
+          `${GLOBALS.BASE_URL}/resources/updateRequest`,
+          { id, ...record }
+        );
+        setIsLoading(false);
+        if (response.data.status === '200') {
+          toast.success(response.data.message);
+          navigate('/resources');
+        } else {
+          if (response.data.status === '409') {
+            navigate('/resources');
+          }
+          toast.warning(response.data.message);
+        }
+      } catch (err) {
+        console.log(err);
+        toast.warning(err.message);
+      }
+    } else {
+      setShowModal(true);
+    }
+  };
+
   return (
     <>
       <Container className='d-flex align-items-center justify-content-center my-3'>
         <div className='w-100' style={{ maxWidth: '400px' }}>
-          <h2 className='text-center mb-4'>New Resource Request</h2>
-          <Form onSubmit={handleSubmit}>
+          <h2 className='text-center mb-4'>
+            {id ? 'Update' : 'New'} Resource Request
+          </h2>
+          <Form onSubmit={id ? handleUpdate : handleSubmit}>
             <LabeledInput
               label='Name *'
               controlId={'resourceName'}
@@ -143,7 +195,7 @@ export default function ResourceRequest() {
               }}
             >
               <ButtonView variant='primary' isLoading={isLoading} type='submit'>
-                Submit
+                {id ? 'Update Request' : 'Submit'}
               </ButtonView>
             </div>
           </Form>
