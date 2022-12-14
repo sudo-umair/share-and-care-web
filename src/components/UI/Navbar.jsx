@@ -150,8 +150,6 @@ function NavBar() {
                   </NavLink>
                 )}
                 <NavDropdown
-                  //responsive
-
                   align={{ lg: 'end' }}
                   title={
                     <Avatar name={name} title={name} size={30} round={true} />
