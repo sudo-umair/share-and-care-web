@@ -68,11 +68,12 @@ export default function RightPane({ activeVolunteer, setRefresh }) {
       <div
         style={{
           width: '70%',
-          height: '80vh',
           display: 'flex',
           flexDirection: 'column',
-          padding: '0.8rem',
+          padding: '0.5rem',
           overflowY: 'scroll',
+          minHeight: '78vh',
+          maxHeight: '78vh',
         }}
         id='right-pane'
       >
@@ -174,7 +175,6 @@ export default function RightPane({ activeVolunteer, setRefresh }) {
           setRefresh={setRefresh}
           volunteerRequestId={activeVolunteer._id}
         />
-        <hr />
         <ModalView
           showModal={showModal}
           setShowModal={setShowModal}
