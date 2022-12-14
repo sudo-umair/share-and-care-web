@@ -6,8 +6,11 @@ import { GLOBALS } from '../../utils/constants';
 import Applicants from './Applicants';
 import ModalView from '../UI/ModalView';
 import { Table } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 export default function RightPane({ activeVolunteer, setRefresh }) {
+  const navigate = useNavigate();
+
   const [isLoading1, setIsLoading1] = useState(false);
   const [isLoading2, setIsLoading2] = useState(false);
 
@@ -128,7 +131,21 @@ export default function RightPane({ activeVolunteer, setRefresh }) {
               <td>{activeVolunteer.volunteerRequestDescription}</td>
             </tr>
             <tr>
-              <td colSpan={2}>
+              <td align='center' colSpan={2}>
+                {activeVolunteer.applicants.length === 0 && (
+                  <ButtonView
+                    type='button'
+                    variant='primary'
+                    onClick={() => {
+                      navigate(`/volunteer-request/${activeVolunteer._id}`);
+                    }}
+                    style={{
+                      marginRight: '1rem',
+                    }}
+                  >
+                    Update Request
+                  </ButtonView>
+                )}
                 <ButtonView
                   type='button'
                   variant={
