@@ -49,10 +49,8 @@ export default function AppRouter() {
           <Route path='/update-password' element={<UpdatePassword />} />
           <Route path='/resources' element={<Resources />} />
           <Route path='/resource-request' element={<ResourceRequest />} />
-          <Route path='/resource-request/:id' element={<ResourceRequest />} />
           <Route path='/volunteers' element={<Volunteers />} />
           <Route path='/volunteer-request' element={<VolunteerRequest />} />
-          <Route path='/volunteer-request/:id' element={<VolunteerRequest />} />
         </Route>
         <Route path='*' element={<Error404 />} />
       </Routes>
