@@ -90,7 +90,6 @@ export default function UpdatePassword() {
       <Container className='d-flex align-items-center justify-content-center my-3'>
         <div className='w-100' style={{ maxWidth: '400px' }}>
           <h2 className='text-center'>Update Password</h2>
-          <p className='text-center mb-4'>{email}</p>
           <Form onSubmit={handleSubmit}>
             <LabeledInput
               className='mb-3'
