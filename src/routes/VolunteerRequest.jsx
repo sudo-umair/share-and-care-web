@@ -30,12 +30,12 @@ export default function VolunteerRequest() {
     hospitalEmail: email,
     hospitalPhone: phone,
     hospitalLocation: address,
-    id: activeVolunteer._id ?? '',
-    volunteerRequestTitle: activeVolunteer.volunteerRequestTitle ?? '',
-    timeDuration: activeVolunteer.timeDuration ?? '',
-    volunteersRequired: activeVolunteer.volunteersRequired ?? '',
+    id: activeVolunteer?._id ?? '',
+    volunteerRequestTitle: activeVolunteer?.volunteerRequestTitle ?? '',
+    timeDuration: activeVolunteer?.timeDuration ?? '',
+    volunteersRequired: activeVolunteer?.volunteersRequired ?? '',
     volunteerRequestDescription:
-      activeVolunteer.volunteerRequestDescription ?? '',
+      activeVolunteer?.volunteerRequestDescription ?? '',
   });
 
   const [originalRecord] = useState(activeVolunteer ?? {});
@@ -143,11 +143,9 @@ export default function VolunteerRequest() {
       <Container className='d-flex align-items-center justify-content-center my-3'>
         <div className='w-100' style={{ maxWidth: '400px' }}>
           <h2 className='text-center mb-4'>
-            {activeVolunteer.id !== '' ? 'Update' : 'New'} Volunteers Request
+            {record.id !== '' ? 'Update' : 'New'} Volunteers Request
           </h2>
-          <Form
-            onSubmit={activeVolunteer.id !== '' ? handleUpdate : handleSubmit}
-          >
+          <Form onSubmit={record.id !== '' ? handleUpdate : handleSubmit}>
             <LabeledInput
               label='Title *'
               controlId={'volunteerRequestTitle'}
@@ -210,7 +208,7 @@ export default function VolunteerRequest() {
               }}
             >
               <ButtonView variant='primary' isLoading={isLoading} type='submit'>
-                {activeVolunteer.id !== '' ? 'Update' : 'Post'} Request
+                {record.id !== '' ? 'Update' : 'Post'} Request
               </ButtonView>
             </div>
           </Form>

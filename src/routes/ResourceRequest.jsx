@@ -27,11 +27,11 @@ export default function ResourceRequest() {
 
   const [record, setRecord] = useState({
     userType: 'hospital',
-    id: activeResource._id ?? '',
-    resourceName: activeResource.resourceName ?? '',
-    resourceQuantity: activeResource.resourceQuantity ?? '',
-    resourceDuration: activeResource.resourceDuration ?? '',
-    resourceNotes: activeResource.resourceNotes ?? '',
+    id: activeResource?._id ?? '',
+    resourceName: activeResource?.resourceName ?? '',
+    resourceQuantity: activeResource?.resourceQuantity ?? '',
+    resourceDuration: activeResource?.resourceDuration ?? '',
+    resourceNotes: activeResource?.resourceNotes ?? '',
     requestedByName: name,
     requestedByEmail: email,
     requestedByPhone: phone,
