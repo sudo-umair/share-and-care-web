@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Form } from 'react-bootstrap';
+import { Container, Form, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 import { GLOBALS } from '../utils/constants';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -168,30 +168,35 @@ export default function ResourceRequest() {
               placeholder='Blood Bags'
               bottomText={'Use one form for each resource'}
             />
-            <LabeledInput
-              label='Quantity *'
-              controlId={'resourceQuantity'}
-              className='mb-3'
-              type='text'
-              name='resourceQuantity'
-              value={record.resourceQuantity}
-              onChange={handleChange}
-              required
-              placeholder='10'
-              minLength={1}
-            />
-            <LabeledInput
-              label='Duration *'
-              className='mb-3'
-              controlId='resourceDuration'
-              type='text'
-              name='resourceDuration'
-              value={record.resourceDuration}
-              onChange={(e) => handleChange(e)}
-              placeholder='3 days'
-              required
-              minLength={3}
-            />
+            <Row>
+              <LabeledInput
+                label='Quantity *'
+                controlId={'resourceQuantity'}
+                className='mb-3'
+                type='text'
+                name='resourceQuantity'
+                value={record.resourceQuantity}
+                onChange={handleChange}
+                required
+                placeholder='10'
+                minLength={1}
+                containerAs={Col}
+              />
+              <LabeledInput
+                label='Duration *'
+                className='mb-3'
+                controlId='resourceDuration'
+                type='text'
+                name='resourceDuration'
+                value={record.resourceDuration}
+                onChange={(e) => handleChange(e)}
+                placeholder='3 days'
+                required
+                minLength={3}
+                containerAs={Col}
+              />
+            </Row>
+
             <LabeledInput
               className={'mb-3'}
               controlId='resourceNotes'

@@ -15,6 +15,7 @@ export default function LabeledInput({
   style,
   containerStyle,
   as,
+  containerAs,
   bottomText,
   maxLength,
   minLength,
@@ -24,6 +25,7 @@ export default function LabeledInput({
       className={className}
       style={containerStyle ?? {}}
       controlId={controlId}
+      as={containerAs ?? 'div'}
     >
       <Form.Label
         style={{

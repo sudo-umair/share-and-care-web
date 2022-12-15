@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Form } from 'react-bootstrap';
+import { Container, Form, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 import { GLOBALS } from '../utils/constants';
 import { useNavigate } from 'react-router-dom';
@@ -147,28 +147,33 @@ export default function Signup() {
               placeholder='abc@xyz.com'
               bottomText={'We will never share your email with anyone else.'}
             />
-            <LabeledInput
-              className='mb-3'
-              controlId='password'
-              label='Password *'
-              type={showPassword ? 'text' : 'password'}
-              name='password'
-              value={record.password}
-              onChange={(e) => handleChange(e)}
-              required
-              minLength={6}
-            />
-            <LabeledInput
-              className='mb-3'
-              controlId='confirmPassword'
-              label='Confirm Password *'
-              type={showPassword ? 'text' : 'password'}
-              name='confirmPassword'
-              value={record.confirmPassword}
-              onChange={(e) => handleChange(e)}
-              required
-              minLength={6}
-            />
+            <Row>
+              <LabeledInput
+                className='mb-3'
+                controlId='password'
+                label='Password *'
+                type={showPassword ? 'text' : 'password'}
+                name='password'
+                value={record.password}
+                onChange={(e) => handleChange(e)}
+                required
+                minLength={6}
+                containerAs={Col}
+              />
+              <LabeledInput
+                className='mb-3'
+                controlId='confirmPassword'
+                label='Confirm Password *'
+                type={showPassword ? 'text' : 'password'}
+                name='confirmPassword'
+                value={record.confirmPassword}
+                onChange={(e) => handleChange(e)}
+                required
+                minLength={6}
+                containerAs={Col}
+              />
+            </Row>
+
             <Form.Group className='mb-3' controlId='showPassword'>
               <Form.Check
                 type='checkbox'
@@ -179,29 +184,34 @@ export default function Signup() {
                 }}
               />
             </Form.Group>
-            <LabeledInput
-              className='mb-3'
-              controlId='phone'
-              label='Phone Number *'
-              type='tel'
-              name='phone'
-              value={record.phone}
-              onChange={(e) => handleChange(e)}
-              required
-              minLength={10}
-              maxLength={11}
-            />
-            <LabeledInput
-              className='mb-3'
-              controlId='website'
-              label='Website'
-              type='text'
-              placeholder='www.example.com (optional)'
-              name='website'
-              value={record.website}
-              onChange={(e) => handleChange(e)}
-              minLength={7}
-            />
+            <Row>
+              <LabeledInput
+                className='mb-3'
+                controlId='phone'
+                label='Phone Number *'
+                type='tel'
+                name='phone'
+                value={record.phone}
+                onChange={(e) => handleChange(e)}
+                required
+                minLength={10}
+                maxLength={11}
+                containerAs={Col}
+              />
+              <LabeledInput
+                className='mb-3'
+                controlId='website'
+                label='Website (Optional)'
+                type='text'
+                placeholder='www.example.com'
+                name='website'
+                value={record.website}
+                onChange={(e) => handleChange(e)}
+                minLength={7}
+                containerAs={Col}
+              />
+            </Row>
+
             <LabeledInput
               className='mb-3'
               controlId='address'

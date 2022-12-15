@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Form } from 'react-bootstrap';
+import { Container, Form, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 import { GLOBALS } from '../utils/constants';
 import { useNavigate } from 'react-router-dom';
@@ -68,7 +68,7 @@ export default function UpdatePassword() {
         setIsLoading(true);
         const response = await axios.put(
           `${GLOBALS.BASE_URL}/hospitals/update-password`,
-          { ...record, email, token }
+          { ...record, token }
         );
         setIsLoading(false);
         if (response.data.status === '200') {
@@ -93,18 +93,15 @@ export default function UpdatePassword() {
           <p className='text-center mb-4'>{email}</p>
           <Form onSubmit={handleSubmit}>
             <LabeledInput
-              label='Email'
-              controlId='email'
               className='mb-3'
+              controlId='email'
+              label='Email'
+              type='email'
               name='email'
               value={record.email}
-              onChange={handleChange}
-              placeholder=''
-              type='email'
+              required
               disabled
-              minLength={9}
             />
-
             <LabeledInput
               className='mb-3'
               controlId='password'
@@ -116,28 +113,32 @@ export default function UpdatePassword() {
               required
               minLength={6}
             />
-            <LabeledInput
-              className='mb-3'
-              controlId='newPassword'
-              label='New Password *'
-              type={showPassword ? 'text' : 'password'}
-              name='newPassword'
-              value={record.newPassword}
-              onChange={(e) => handleChange(e)}
-              required
-              minLength={6}
-            />
-            <LabeledInput
-              className='mb-3'
-              controlId='confirmNewPassword'
-              label='Confirm New Password *'
-              type={showPassword ? 'text' : 'password'}
-              name='confirmNewPassword'
-              value={record.confirmNewPassword}
-              onChange={(e) => handleChange(e)}
-              required
-              minLength={6}
-            />
+            <Row>
+              <LabeledInput
+                className='mb-3'
+                controlId='newPassword'
+                label='New Password *'
+                type={showPassword ? 'text' : 'password'}
+                name='newPassword'
+                value={record.newPassword}
+                onChange={(e) => handleChange(e)}
+                required
+                minLength={6}
+                containerAs={Col}
+              />
+              <LabeledInput
+                className='mb-3'
+                controlId='confirmNewPassword'
+                label='Confirm New Password *'
+                type={showPassword ? 'text' : 'password'}
+                name='confirmNewPassword'
+                value={record.confirmNewPassword}
+                onChange={(e) => handleChange(e)}
+                required
+                minLength={6}
+                containerAs={Col}
+              />
+            </Row>
             <Form.Group className='mb-3' controlId='showPassword'>
               <Form.Check
                 type='checkbox'

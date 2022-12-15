@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Form } from 'react-bootstrap';
+import { Container, Form, Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { GLOBALS } from '../utils/constants';
@@ -32,7 +32,7 @@ export default function UpdateAccount() {
     token,
   });
 
-  const [originalRecord, setOriginalRecord] = useState(record);
+  const [originalRecord] = useState(record);
 
   const checkInputs = () => {
     if (record.name.trim().length < 4) {
@@ -165,31 +165,36 @@ export default function UpdateAccount() {
               required
               minLength={9}
             />
+            <Row>
+              <LabeledInput
+                label='Phone Number *'
+                controlId='phone'
+                className='mb-3'
+                name='phone'
+                value={record.phone}
+                onChange={handleChange}
+                placeholder=''
+                type='text'
+                required
+                minLength={10}
+                maxLength={11}
+                containerAs={Col}
+              />
+              <LabeledInput
+                className='mb-3'
+                controlId='website'
+                label='Website'
+                type='text'
+                placeholder='www.example.com (optional)'
+                name='website'
+                value={record.website}
+                onChange={(e) => handleChange(e)}
+                minLength={7}
+                maxLength={30}
+                containerAs={Col}
+              />
+            </Row>
 
-            <LabeledInput
-              label='Phone Number *'
-              controlId='phone'
-              className='mb-3'
-              name='phone'
-              value={record.phone}
-              onChange={handleChange}
-              placeholder=''
-              type='text'
-              required
-              minLength={10}
-              maxLength={11}
-            />
-            <LabeledInput
-              className='mb-3'
-              controlId='website'
-              label='Website'
-              type='text'
-              placeholder='www.example.com (optional)'
-              name='website'
-              value={record.website}
-              onChange={(e) => handleChange(e)}
-              minLength={7}
-            />
             <LabeledInput
               label='Address *'
               controlId='address'

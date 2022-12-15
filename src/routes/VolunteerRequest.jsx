@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Form } from 'react-bootstrap';
+import { Container, Form, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 import { GLOBALS } from '../utils/constants';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -176,30 +176,35 @@ export default function VolunteerRequest() {
               minLength={5}
               placeholder='Need Volunteers Immediately'
             />
-            <LabeledInput
-              label='Volunteers Required *'
-              controlId={'volunteersRequired'}
-              className='mb-3'
-              type='text'
-              name='volunteersRequired'
-              value={record.volunteersRequired}
-              onChange={handleChange}
-              required
-              placeholder='10'
-              minLength={1}
-            />
-            <LabeledInput
-              label='Duration *'
-              className='mb-3'
-              controlId='timeDuration'
-              type='text'
-              name='timeDuration'
-              value={record.timeDuration}
-              onChange={(e) => handleChange(e)}
-              placeholder='15 days'
-              required
-              minLength={5}
-            />
+            <Row>
+              <LabeledInput
+                label='Volunteers Required *'
+                controlId={'volunteersRequired'}
+                className='mb-3'
+                type='text'
+                name='volunteersRequired'
+                value={record.volunteersRequired}
+                onChange={handleChange}
+                required
+                placeholder='10'
+                minLength={1}
+                containerAs={Col}
+              />
+              <LabeledInput
+                label='Duration *'
+                className='mb-3'
+                controlId='timeDuration'
+                type='text'
+                name='timeDuration'
+                value={record.timeDuration}
+                onChange={(e) => handleChange(e)}
+                placeholder='15 days'
+                required
+                minLength={5}
+                containerAs={Col}
+              />
+            </Row>
+
             <LabeledInput
               className={'mb-3'}
               controlId='volunteerRequestDescription'
