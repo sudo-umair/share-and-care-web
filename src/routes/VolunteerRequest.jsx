@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Container, Form, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 import { GLOBALS } from '../utils/constants';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import ModalView from '../components/UI/ModalView';
 import LabeledInput from '../components/UI/LabeledInput';
 import { toast } from 'react-toastify';
@@ -11,7 +11,9 @@ import { useSelector } from 'react-redux';
 
 export default function VolunteerRequest() {
   const navigate = useNavigate();
-  const { id } = useParams();
+  const location = useLocation();
+
+  const { activeVolunteer } = location.state ?? {};
 
   const { email, name, phone, address } = useSelector(
     (state) => state.hospital
@@ -28,35 +30,15 @@ export default function VolunteerRequest() {
     hospitalEmail: email,
     hospitalPhone: phone,
     hospitalLocation: address,
-    volunteerRequestTitle: '',
-    timeDuration: '',
-    volunteersRequired: '',
-    volunteerRequestDescription: '',
+    id: activeVolunteer._id ?? '',
+    volunteerRequestTitle: activeVolunteer.volunteerRequestTitle ?? '',
+    timeDuration: activeVolunteer.timeDuration ?? '',
+    volunteersRequired: activeVolunteer.volunteersRequired ?? '',
+    volunteerRequestDescription:
+      activeVolunteer.volunteerRequestDescription ?? '',
   });
 
-  const [originalRecord, setOriginalRecord] = useState({});
-
-  useEffect(() => {
-    if (id) {
-      const fetchResource = async () => {
-        try {
-          const response = await axios.post(
-            `${GLOBALS.BASE_URL}/volunteers/fetchOneRequest/${id}`
-          );
-          if (response.data.status === '200') {
-            setRecord(response.data.result);
-            setOriginalRecord(response.data.result);
-            console.log(response.data.result);
-          } else {
-            toast.error(response.data.message);
-          }
-        } catch (err) {
-          toast.error(err.message);
-        }
-      };
-      fetchResource();
-    }
-  }, [id]);
+  const [originalRecord] = useState(activeVolunteer ?? {});
 
   const checkInputs = () => {
     if (record.volunteerRequestTitle.trim().length < 5) {
@@ -135,7 +117,7 @@ export default function VolunteerRequest() {
         setIsLoading(true);
         const response = await axios.post(
           `${GLOBALS.BASE_URL}/volunteers/updateRequest`,
-          { id, ...record }
+          record
         );
         setIsLoading(false);
         if (response.data.status === '200') {
@@ -161,9 +143,11 @@ export default function VolunteerRequest() {
       <Container className='d-flex align-items-center justify-content-center my-3'>
         <div className='w-100' style={{ maxWidth: '400px' }}>
           <h2 className='text-center mb-4'>
-            {id ? 'Update' : 'New'} Volunteers Request
+            {activeVolunteer.id !== '' ? 'Update' : 'New'} Volunteers Request
           </h2>
-          <Form onSubmit={id ? handleUpdate : handleSubmit}>
+          <Form
+            onSubmit={activeVolunteer.id !== '' ? handleUpdate : handleSubmit}
+          >
             <LabeledInput
               label='Title *'
               controlId={'volunteerRequestTitle'}

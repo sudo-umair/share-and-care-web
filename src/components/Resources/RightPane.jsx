@@ -282,7 +282,9 @@ export default function RightPane({ activeResource, hospital, setRefresh }) {
                       type='button'
                       variant='primary'
                       onClick={() => {
-                        navigate(`/resource-request/${activeResource._id}`);
+                        navigate('/resource-request/', {
+                          state: { activeResource: activeResource },
+                        });
                       }}
                     >
                       Update Request

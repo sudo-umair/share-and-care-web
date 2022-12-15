@@ -137,7 +137,11 @@ export default function RightPane({ activeVolunteer, setRefresh }) {
                     type='button'
                     variant='primary'
                     onClick={() => {
-                      navigate(`/volunteer-request/${activeVolunteer._id}`);
+                      navigate('/volunteer-request', {
+                        state: {
+                          activeVolunteer: activeVolunteer,
+                        },
+                      });
                     }}
                     style={{
                       marginRight: '1rem',
