@@ -210,7 +210,7 @@ export default function VolunteerRequest() {
               }}
             >
               <ButtonView variant='primary' isLoading={isLoading} type='submit'>
-                Submit
+                {activeVolunteer.id !== '' ? 'Update' : 'Post'} Request
               </ButtonView>
             </div>
           </Form>
