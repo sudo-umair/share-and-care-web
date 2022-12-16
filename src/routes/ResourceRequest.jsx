@@ -148,7 +148,9 @@ export default function ResourceRequest() {
               className={'mb-3'}
               minLength={3}
               placeholder='Blood Bags'
-              bottomText={'Use one form for each resource'}
+              bottomText={
+                record.id !== '' ? null : 'Use one form for each resource'
+              }
             />
             <Row>
               <LabeledInput
