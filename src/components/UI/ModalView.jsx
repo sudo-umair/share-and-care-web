@@ -20,9 +20,21 @@ export default function ModalView({
       onHide={() => setShowModal(false)}
     >
       <Modal.Header closeButton>
-        <Modal.Title>{modalTitle}</Modal.Title>
+        <Modal.Title
+          style={{
+            fontSize: '1.3rem',
+          }}
+        >
+          {modalTitle}
+        </Modal.Title>
       </Modal.Header>
-      <Modal.Body>{modalBody}</Modal.Body>
+      <Modal.Body
+        style={{
+          fontSize: '0.9rem',
+        }}
+      >
+        {modalBody}
+      </Modal.Body>
       <Modal.Footer>
         {action2Text && (
           <ButtonView
