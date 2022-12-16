@@ -92,7 +92,7 @@ export default function VolunteerRequest() {
       try {
         setIsLoading(true);
         const response = await axios.post(
-          `${GLOBALS.BASE_URL}/volunteers/createVolunteerRequest`,
+          `${GLOBALS.BASE_URL}/volunteers/postRequest`,
           record
         );
         setIsLoading(false);

@@ -19,7 +19,7 @@ export default function Home() {
     const getData = async () => {
       setLoading(true);
       await axios
-        .post(`${GLOBALS.BASE_URL}/hospitals/requests-count`, { email })
+        .post(`${GLOBALS.BASE_URL}/hospitals/fetchStats`, { email })
         .then((res) => {
           setHospitalRecord(res.data.hospitalRecord);
         })

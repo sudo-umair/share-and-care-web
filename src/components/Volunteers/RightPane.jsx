@@ -19,7 +19,7 @@ export default function RightPane({ activeVolunteer, setRefresh }) {
   const handleUpdateRequest = async (requestStatus) => {
     setIsLoading1(true);
     await axios
-      .post(`${GLOBALS.BASE_URL}/volunteers/updateVolunteerRequest`, {
+      .post(`${GLOBALS.BASE_URL}/volunteers/updateRequestStatus`, {
         volunteerRequestId: activeVolunteer._id,
         requestStatus,
       })
@@ -42,7 +42,7 @@ export default function RightPane({ activeVolunteer, setRefresh }) {
   const handleDeleteRequest = async () => {
     setIsLoading2(true);
     await axios
-      .post(`${GLOBALS.BASE_URL}/volunteers/deleteVolunteerRequest`, {
+      .post(`${GLOBALS.BASE_URL}/volunteers/deleteRequest`, {
         volunteerRequestId: activeVolunteer._id,
       })
       .then((response) => {

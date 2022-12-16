@@ -41,7 +41,7 @@ export default function Volunteers() {
     const fetchData = async () => {
       setIsLoading(true);
       const response = await axios.post(
-        `${GLOBALS.BASE_URL}/volunteers/fetchMyVolunteerRequests`,
+        `${GLOBALS.BASE_URL}/volunteers/fetchMyRequests`,
         {
           hospitalEmail: email,
         }
