@@ -125,6 +125,18 @@ export default function LeftPane({
               </div>
             );
           })}
+          {resources.length === 0 && (
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginTop: '2rem',
+              }}
+            >
+              <p>No requests found!</p>
+            </div>
+          )}
         </>
       )}
     </div>

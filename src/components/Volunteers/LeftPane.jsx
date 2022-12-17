@@ -105,6 +105,18 @@ export default function LeftPane({
               </div>
             );
           })}
+          {volunteers.length === 0 && (
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginTop: '2rem',
+              }}
+            >
+              <p>No Requests Found!</p>
+            </div>
+          )}
         </>
       )}
     </div>
