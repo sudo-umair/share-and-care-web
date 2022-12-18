@@ -154,10 +154,9 @@ export default function ForgotPassword() {
         <div className='w-100' style={{ maxWidth: '400px' }}>
           {!showRPC ? (
             <>
-              <h3 className='text-center mb-4'>Forgot Password</h3>
+              <h3 className='text-center mb-3'>Forgot Password</h3>
               <Form onSubmit={handleVerifyOTP}>
                 <LabeledInput
-                  className='mb-3'
                   controlId='email'
                   label='Email address *'
                   type='email'
@@ -177,7 +176,6 @@ export default function ForgotPassword() {
                   }}
                 >
                   <LabeledInput
-                    className='mb-3'
                     controlId='otp'
                     label='OTP'
                     type='text'
@@ -221,10 +219,9 @@ export default function ForgotPassword() {
             </>
           ) : (
             <>
-              <h3 className='text-center mb-4'>Reset Password</h3>
+              <h3 className='text-center mb-3'>Reset Password</h3>
               <Form onSubmit={handleResetPassword}>
                 <LabeledInput
-                  className='mb-3'
                   controlId='email'
                   label='Email address'
                   type='email'
@@ -236,7 +233,6 @@ export default function ForgotPassword() {
                   disabled
                 />
                 <LabeledInput
-                  className='mb-3'
                   controlId='password'
                   label='New Password *'
                   type={showPassword ? 'text' : 'password'}
@@ -248,7 +244,6 @@ export default function ForgotPassword() {
                   required
                 />
                 <LabeledInput
-                  className='mb-3'
                   controlId='confirmPassword'
                   label='Confirm New Password *'
                   type={showPassword ? 'text' : 'password'}
@@ -259,7 +254,7 @@ export default function ForgotPassword() {
                   minLength={6}
                   required
                 />
-                <Form.Group className='mb-3' controlId='showPassword'>
+                <Form.Group className='mb-2' controlId='showPassword'>
                   <Form.Check
                     type='checkbox'
                     onChange={() => setShowPassword(!showPassword)}

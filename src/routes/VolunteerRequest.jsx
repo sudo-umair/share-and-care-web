@@ -142,7 +142,7 @@ export default function VolunteerRequest() {
     <>
       <Container className='d-flex align-items-center justify-content-center my-3'>
         <div className='w-100' style={{ maxWidth: '400px' }}>
-          <h3 className='text-center mb-4'>
+          <h3 className='text-center mb-3'>
             {record.id !== '' ? 'Update' : 'New'} Volunteers Request
           </h3>
           <Form onSubmit={record.id !== '' ? handleUpdate : handleSubmit}>
@@ -154,7 +154,6 @@ export default function VolunteerRequest() {
               value={record.volunteerRequestTitle}
               onChange={handleChange}
               required
-              className={'mb-3'}
               minLength={5}
               placeholder='Need Volunteers Immediately'
             />
@@ -162,7 +161,6 @@ export default function VolunteerRequest() {
               <LabeledInput
                 label='Volunteers Required *'
                 controlId={'volunteersRequired'}
-                className='mb-3'
                 type='text'
                 name='volunteersRequired'
                 value={record.volunteersRequired}
@@ -174,7 +172,6 @@ export default function VolunteerRequest() {
               />
               <LabeledInput
                 label='Duration *'
-                className='mb-3'
                 controlId='timeDuration'
                 type='text'
                 name='timeDuration'
@@ -188,7 +185,6 @@ export default function VolunteerRequest() {
             </Row>
 
             <LabeledInput
-              className={'mb-3'}
               controlId='volunteerRequestDescription'
               label='Description *'
               type='text-area'

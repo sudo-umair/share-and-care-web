@@ -133,7 +133,7 @@ export default function ResourceRequest() {
     <>
       <Container className='d-flex align-items-center justify-content-center my-3'>
         <div className='w-100' style={{ maxWidth: '400px' }}>
-          <h3 className='text-center mb-4'>
+          <h3 className='text-center mb-3'>
             {record.id !== '' ? 'Update' : 'New'} Resource Request
           </h3>
           <Form onSubmit={record.id !== '' ? handleUpdate : handleSubmit}>
@@ -145,7 +145,6 @@ export default function ResourceRequest() {
               value={record.resourceName}
               onChange={handleChange}
               required
-              className={'mb-3'}
               minLength={3}
               placeholder='Blood Bags'
               bottomText={
@@ -156,7 +155,6 @@ export default function ResourceRequest() {
               <LabeledInput
                 label='Quantity *'
                 controlId={'resourceQuantity'}
-                className='mb-3'
                 type='text'
                 name='resourceQuantity'
                 value={record.resourceQuantity}
@@ -168,7 +166,6 @@ export default function ResourceRequest() {
               />
               <LabeledInput
                 label='Duration *'
-                className='mb-3'
                 controlId='resourceDuration'
                 type='text'
                 name='resourceDuration'
@@ -182,7 +179,6 @@ export default function ResourceRequest() {
             </Row>
 
             <LabeledInput
-              className={'mb-3'}
               controlId='resourceNotes'
               label='Additional Notes'
               type='text-area'

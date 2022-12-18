@@ -89,10 +89,9 @@ export default function UpdatePassword() {
     <>
       <Container className='d-flex align-items-center justify-content-center my-3'>
         <div className='w-100' style={{ maxWidth: '400px' }}>
-          <h3 className='text-center'>Update Password</h3>
+          <h3 className='text-center mb-3'>Update Password</h3>
           <Form onSubmit={handleSubmit}>
             <LabeledInput
-              className='mb-3'
               controlId='email'
               label='Email'
               type='email'
@@ -102,7 +101,6 @@ export default function UpdatePassword() {
               disabled
             />
             <LabeledInput
-              className='mb-3'
               controlId='password'
               label='Password *'
               type={showPassword ? 'text' : 'password'}
@@ -114,7 +112,6 @@ export default function UpdatePassword() {
             />
             <Row>
               <LabeledInput
-                className='mb-3'
                 controlId='newPassword'
                 label='New Password *'
                 type={showPassword ? 'text' : 'password'}
@@ -126,7 +123,6 @@ export default function UpdatePassword() {
                 containerAs={Col}
               />
               <LabeledInput
-                className='mb-3'
                 controlId='confirmNewPassword'
                 label='Confirm New Password *'
                 type={showPassword ? 'text' : 'password'}
@@ -138,7 +134,7 @@ export default function UpdatePassword() {
                 containerAs={Col}
               />
             </Row>
-            <Form.Group className='mb-3' controlId='showPassword'>
+            <Form.Group className='mb-2' controlId='showPassword'>
               <Form.Check
                 type='checkbox'
                 onChange={() => setShowPassword(!showPassword)}

@@ -22,7 +22,7 @@ export default function LabeledInput({
 }) {
   return (
     <Form.Group
-      className={className}
+      className={'mb-2'}
       style={containerStyle ?? {}}
       controlId={controlId}
       as={containerAs ?? 'div'}

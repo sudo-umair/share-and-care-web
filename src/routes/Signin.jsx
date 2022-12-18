@@ -79,10 +79,9 @@ export default function Signin() {
     <>
       <Container className='d-flex align-items-center justify-content-center my-3'>
         <div className='w-100' style={{ maxWidth: '400px' }}>
-          <h3 className='text-center mb-4'>Sign In</h3>
+          <h3 className='text-center mb-2'>Sign In</h3>
           <Form onSubmit={handleSubmit}>
             <LabeledInput
-              className='mb-3'
               controlId='email'
               label='Email address *'
               type='email'
@@ -94,7 +93,6 @@ export default function Signin() {
               minLength={9}
             />
             <LabeledInput
-              className='mb-3'
               controlId='password'
               label='Password *'
               type={showPassword ? 'text' : 'password'}
@@ -105,7 +103,7 @@ export default function Signin() {
               required
               minLength={6}
             />
-            <Form.Group className='mb-3' controlId='formBasicCheckbox'>
+            <Form.Group className='mb-2' controlId='formBasicCheckbox'>
               <Form.Check
                 type='checkbox'
                 onChange={() => setShowPassword(!showPassword)}

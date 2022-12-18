@@ -121,7 +121,7 @@ export default function Signup() {
     <>
       <Container className='d-flex align-items-center justify-content-center my-3'>
         <div className='w-100' style={{ maxWidth: '400px' }}>
-          <h3 className='text-center mb-4'>Sign Up</h3>
+          <h3 className='text-center mb-3'>Sign Up</h3>
           <Form onSubmit={handleSubmit}>
             <LabeledInput
               label='Hospital Name *'
@@ -137,7 +137,6 @@ export default function Signup() {
             <LabeledInput
               label='Email Address *'
               controlId={'email'}
-              className='mb-3'
               type='email'
               name='email'
               value={record.email}
@@ -149,7 +148,6 @@ export default function Signup() {
             />
             <Row>
               <LabeledInput
-                className='mb-3'
                 controlId='password'
                 label='Password *'
                 type={showPassword ? 'text' : 'password'}
@@ -161,7 +159,6 @@ export default function Signup() {
                 containerAs={Col}
               />
               <LabeledInput
-                className='mb-3'
                 controlId='confirmPassword'
                 label='Confirm Password *'
                 type={showPassword ? 'text' : 'password'}
@@ -174,7 +171,7 @@ export default function Signup() {
               />
             </Row>
 
-            <Form.Group className='mb-3' controlId='showPassword'>
+            <Form.Group className='mb-2' controlId='showPassword'>
               <Form.Check
                 type='checkbox'
                 onChange={() => setShowPassword(!showPassword)}
@@ -186,7 +183,6 @@ export default function Signup() {
             </Form.Group>
             <Row>
               <LabeledInput
-                className='mb-3'
                 controlId='phone'
                 label='Phone Number *'
                 type='tel'
@@ -199,7 +195,6 @@ export default function Signup() {
                 containerAs={Col}
               />
               <LabeledInput
-                className='mb-3'
                 controlId='website'
                 label='Website'
                 type='text'
@@ -213,7 +208,6 @@ export default function Signup() {
             </Row>
 
             <LabeledInput
-              className='mb-3'
               controlId='address'
               label='Address *'
               as='textarea'

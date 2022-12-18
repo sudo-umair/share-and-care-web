@@ -137,12 +137,11 @@ export default function UpdateAccount() {
     <>
       <Container className='d-flex align-items-center justify-content-center my-3'>
         <div className='w-100' style={{ maxWidth: '400px' }}>
-          <h3 className='text-center mb-4'>Update Account</h3>
+          <h3 className='text-center mb-3'>Update Account</h3>
           <Form onSubmit={handleSubmit}>
             <LabeledInput
               label='Hospital Name *'
               controlId='name'
-              className='mb-3'
               name='name'
               value={record.name}
               onChange={handleChange}
@@ -154,7 +153,6 @@ export default function UpdateAccount() {
             <LabeledInput
               label='Email'
               controlId='email'
-              className='mb-3'
               name='email'
               value={record.email}
               onChange={handleChange}
@@ -169,7 +167,6 @@ export default function UpdateAccount() {
               <LabeledInput
                 label='Phone Number *'
                 controlId='phone'
-                className='mb-3'
                 name='phone'
                 value={record.phone}
                 onChange={handleChange}
@@ -181,7 +178,6 @@ export default function UpdateAccount() {
                 containerAs={Col}
               />
               <LabeledInput
-                className='mb-3'
                 controlId='website'
                 label='Website'
                 type='text'
@@ -194,11 +190,9 @@ export default function UpdateAccount() {
                 containerAs={Col}
               />
             </Row>
-
             <LabeledInput
               label='Address *'
               controlId='address'
-              className='mb-3'
               name='address'
               value={record.address}
               onChange={handleChange}
