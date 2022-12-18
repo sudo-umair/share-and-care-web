@@ -29,7 +29,7 @@ export default function LabeledInput({
     >
       <Form.Label
         style={{
-          fontSize: '0.9rem',
+          fontSize: '0.8rem',
           margin: 0,
         }}
         title={

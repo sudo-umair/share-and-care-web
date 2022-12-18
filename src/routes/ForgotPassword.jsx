@@ -154,7 +154,7 @@ export default function ForgotPassword() {
         <div className='w-100' style={{ maxWidth: '400px' }}>
           {!showRPC ? (
             <>
-              <h2 className='text-center mb-4'>Forgot Password</h2>
+              <h3 className='text-center mb-4'>Forgot Password</h3>
               <Form onSubmit={handleVerifyOTP}>
                 <LabeledInput
                   className='mb-3'
@@ -221,7 +221,7 @@ export default function ForgotPassword() {
             </>
           ) : (
             <>
-              <h2 className='text-center mb-4'>Reset Password</h2>
+              <h3 className='text-center mb-4'>Reset Password</h3>
               <Form onSubmit={handleResetPassword}>
                 <LabeledInput
                   className='mb-3'

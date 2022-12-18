@@ -121,7 +121,7 @@ export default function Signup() {
     <>
       <Container className='d-flex align-items-center justify-content-center my-3'>
         <div className='w-100' style={{ maxWidth: '400px' }}>
-          <h2 className='text-center mb-4'>Sign Up</h2>
+          <h3 className='text-center mb-4'>Sign Up</h3>
           <Form onSubmit={handleSubmit}>
             <LabeledInput
               label='Hospital Name *'
@@ -201,7 +201,7 @@ export default function Signup() {
               <LabeledInput
                 className='mb-3'
                 controlId='website'
-                label='Website (Optional)'
+                label='Website'
                 type='text'
                 placeholder='www.example.com'
                 name='website'

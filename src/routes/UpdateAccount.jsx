@@ -137,7 +137,7 @@ export default function UpdateAccount() {
     <>
       <Container className='d-flex align-items-center justify-content-center my-3'>
         <div className='w-100' style={{ maxWidth: '400px' }}>
-          <h2 className='text-center mb-4'>Update Account</h2>
+          <h3 className='text-center mb-4'>Update Account</h3>
           <Form onSubmit={handleSubmit}>
             <LabeledInput
               label='Hospital Name *'
@@ -185,7 +185,7 @@ export default function UpdateAccount() {
                 controlId='website'
                 label='Website'
                 type='text'
-                placeholder='www.example.com (optional)'
+                placeholder='www.example.com'
                 name='website'
                 value={record.website}
                 onChange={(e) => handleChange(e)}

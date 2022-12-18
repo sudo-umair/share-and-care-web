@@ -79,7 +79,7 @@ export default function Signin() {
     <>
       <Container className='d-flex align-items-center justify-content-center my-3'>
         <div className='w-100' style={{ maxWidth: '400px' }}>
-          <h2 className='text-center mb-4'>Sign In</h2>
+          <h3 className='text-center mb-4'>Sign In</h3>
           <Form onSubmit={handleSubmit}>
             <LabeledInput
               className='mb-3'

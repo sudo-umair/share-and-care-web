@@ -142,9 +142,9 @@ export default function VolunteerRequest() {
     <>
       <Container className='d-flex align-items-center justify-content-center my-3'>
         <div className='w-100' style={{ maxWidth: '400px' }}>
-          <h2 className='text-center mb-4'>
+          <h3 className='text-center mb-4'>
             {record.id !== '' ? 'Update' : 'New'} Volunteers Request
-          </h2>
+          </h3>
           <Form onSubmit={record.id !== '' ? handleUpdate : handleSubmit}>
             <LabeledInput
               label='Title *'
