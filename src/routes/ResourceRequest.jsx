@@ -146,6 +146,7 @@ export default function ResourceRequest() {
               onChange={handleChange}
               required
               minLength={3}
+              maxLength={15}
               placeholder='Blood Bags'
               bottomText={
                 record.id !== '' ? null : 'Use one form for each resource'
@@ -162,6 +163,7 @@ export default function ResourceRequest() {
                 required
                 placeholder='10'
                 minLength={1}
+                maxLength={3}
                 containerAs={Col}
               />
               <LabeledInput
@@ -174,6 +176,7 @@ export default function ResourceRequest() {
                 placeholder='3 days'
                 required
                 minLength={3}
+                maxLength={10}
                 containerAs={Col}
               />
             </Row>

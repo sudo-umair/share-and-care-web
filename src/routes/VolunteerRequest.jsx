@@ -155,6 +155,7 @@ export default function VolunteerRequest() {
               onChange={handleChange}
               required
               minLength={5}
+              maxLength={15}
               placeholder='Need Volunteers Immediately'
             />
             <Row>
@@ -168,6 +169,7 @@ export default function VolunteerRequest() {
                 required
                 placeholder='10'
                 minLength={1}
+                maxLength={2}
                 containerAs={Col}
               />
               <LabeledInput
@@ -180,6 +182,7 @@ export default function VolunteerRequest() {
                 placeholder='15 days'
                 required
                 minLength={5}
+                maxLength={8}
                 containerAs={Col}
               />
             </Row>
